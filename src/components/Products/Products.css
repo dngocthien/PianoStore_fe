@@ -1,0 +1,42 @@
+@import "../../vars.css";
+
+.products {
+  margin: 3rem;
+}
+
+.products-select {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.products-show {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-gap: 2rem;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
+
+@media screen and (max-width: 1900px) {
+  .products-show {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media screen and (max-width: 987px) {
+  .products-show {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .products {
+    margin: 2rem;
+  }
+  .products-show {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

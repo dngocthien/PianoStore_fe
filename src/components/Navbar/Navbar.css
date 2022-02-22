@@ -1,0 +1,142 @@
+@import "../../vars.css";
+
+.navbar {
+  margin: 2rem 3rem 0 3rem;
+  align-items: center;
+  justify-content: center;
+}
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar-logo img {
+  width: 80px;
+  cursor: pointer;
+}
+
+.navbar-container {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-container-a {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+}
+.navbar-container-a p {
+  margin-right: 4rem;
+}
+
+.navbar-container-search {
+  border: 1px solid;
+  border-radius: 60px;
+  justify-content: center;
+  height: 2.5rem;
+  align-items: center;
+}
+.search1 {
+  display: flex;
+  margin-right: 3rem;
+}
+.search2 {
+  display: none;
+  justify-content: space-between;
+}
+
+.search1 input {
+  display: flex;
+  border: none;
+  margin-left: 0.5rem;
+  width: 15rem;
+}
+.search2 input {
+  border: none;
+  margin-left: 1rem;
+}
+
+.navbar-container-search input:focus {
+  outline-width: 0;
+}
+.navbar-container-search img {
+  cursor: pointer;
+  height: 25px;
+  margin-right: 1rem;
+}
+
+.navbar-container-cart {
+  align-items: center;
+}
+.navbar-container-cart img {
+  height: 40px;
+  cursor: pointer;
+}
+
+.navbar-container-menu {
+  display: none;
+}
+.navbar-container-menu img {
+  height: 45px;
+  cursor: pointer;
+}
+
+.navbar-container-menu-show {
+  border-radius: 5px;
+  background-color: var(--yellow);
+  padding: 0 1rem;
+  position: absolute;
+  left: 2rem;
+}
+.navbar-container-menu-show p {
+  cursor: pointer;
+  color: var(--white);
+  font-weight: 700;
+}
+
+@media screen and (max-width: 987px) {
+  .navbar-logo img {
+    width: 60px;
+  }
+
+  .navbar-container-a {
+    display: none;
+  }
+
+  .search1 {
+    display: none;
+  }
+  .search2 {
+    display: flex;
+    flex: 1;
+    margin: 1rem 4rem 0 4rem;
+    align-self: center;
+  }
+
+  .navbar-container-menu {
+    display: block;
+  }
+}
+
+@media screen and (max-width: 543px) {
+  .navbar {
+    margin: 1.5rem 2rem;
+  }
+  .navbar-logo img {
+    width: 50px;
+  }
+  .search1 {
+    width: 11rem;
+    height: 2rem;
+    margin-right: 1rem;
+  }
+  .search2 {
+    margin: 1rem 1rem 0 1rem;
+  }
+  .navbar-container-menu img {
+    height: 35px;
+  }
+}

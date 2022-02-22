@@ -1,0 +1,35 @@
+@import "../../vars.css";
+
+.product {
+  border: 1px solid var(--grey);
+  border-radius: 5px;
+  margin-top: 2rem;
+}
+
+.product-info {
+  margin-top: 1rem;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.product-info img {
+  width: 200px;
+}
+
+.product-info p {
+  font-size: 24px;
+  line-height: 16px;
+  font-weight: 700;
+}
+
+.product-info-price {
+  color: var(--red);
+}
+
+.product-add {
+  cursor: pointer;
+  float: right;
+  margin: 0 1rem 1rem 0;
+  width: 50px;
+}

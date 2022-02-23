@@ -11,6 +11,7 @@
 }
 
 .products-show {
+  margin-top: 3rem;
   flex: 1;
   display: grid;
   grid-template-columns: repeat(5, 1fr);
@@ -38,5 +39,14 @@
   }
   .products-show {
     grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .products {
+    margin: 2rem;
+  }
+  .products-show {
+    grid-template-columns: repeat(1, 1fr);
   }
 }

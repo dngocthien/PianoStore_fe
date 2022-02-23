@@ -1,13 +1,13 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import { Outlet, Link } from "react-router-dom";
 import logo from "../../assets/logo.png";
 import search from "../../assets/search.png";
 import cart from "../../assets/cart.png";
 import menu from "../../assets/menu.png";
 import x from "../../assets/x.png";
 import "./Navbar.css";
-import { Products } from "../Products/Products";
 
-export const Navbar = () => {
+const Navbar = () => {
   const [showMenu, setShowMenu] = useState(false);
   function findProduct1() {
     let name = document.getElementById("searching1").value;
@@ -28,7 +28,7 @@ export const Navbar = () => {
       .then((result) => {
         console.log(result);
         // setProducts(result);
-        return <Products />;
+        // return <Products />;
       });
   }
 
@@ -44,32 +44,58 @@ export const Navbar = () => {
           {showMenu && (
             <div className="navbar-container-menu-show">
               <p>
-                <a>PIANO</a>
+                <Link
+                  className="text-link"
+                  to="/products"
+                  onClick={() => setShowMenu(false)}
+                >
+                  PIANO
+                </Link>
               </p>
               <p>
-                <a>ORGAN</a>
+                <Link
+                  className="text-link"
+                  to="/blog"
+                  onClick={() => setShowMenu(false)}
+                >
+                  BLOG
+                </Link>
               </p>
               <p>
-                <a>GUITAR</a>
+                <Link
+                  className="text-link"
+                  to="/contact"
+                  onClick={() => setShowMenu(false)}
+                >
+                  LIÊN HỆ
+                </Link>
               </p>
             </div>
           )}
         </div>
 
         <div className="navbar-logo">
-          <img src={logo} alt="logo" />
+          <Link to="/">
+            <img src={logo} alt="logo" />
+          </Link>
         </div>
 
         <div className="navbar-container">
           <div className="navbar-container-a">
             <p>
-              <a>PIANO</a>
+              <Link className="text-link" to="/products">
+                PIANO
+              </Link>
             </p>
             <p>
-              <a>ORGAN</a>
+              <Link className="text-link" to="/blog">
+                BLOG
+              </Link>
             </p>
             <p>
-              <a>GUITAR</a>
+              <Link className="text-link" to="/contact">
+                LIÊN HỆ
+              </Link>
             </p>
           </div>
 
@@ -88,6 +114,10 @@ export const Navbar = () => {
         <input id="searching2" type="text" placeholder="Tìm sản phẩm" />
         <img src={search} alt="search" onClick={() => findProduct2()} />
       </div>
+
+      <Outlet />
     </div>
   );
 };
+
+export default Navbar;

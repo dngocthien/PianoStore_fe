@@ -1,0 +1,17 @@
+.home-piano {
+  margin-top: 4rem;
+}
+
+.home-blog {
+  margin-top: 4rem;
+}
+
+.products-model {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 2rem;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}

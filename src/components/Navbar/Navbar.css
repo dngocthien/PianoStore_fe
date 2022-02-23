@@ -28,8 +28,13 @@
   justify-content: center;
   font-weight: 700;
 }
-.navbar-container-a p {
+.navbar-container-a a {
   margin-right: 4rem;
+}
+
+.text-link {
+  color: inherit;
+  text-decoration: inherit;
 }
 
 .navbar-container-search {
@@ -86,8 +91,8 @@
 
 .navbar-container-menu-show {
   border-radius: 5px;
-  background-color: var(--yellow);
-  padding: 0 1rem;
+  background-color: var(--grey);
+  padding: 0 3rem 0 1rem;
   position: absolute;
   left: 2rem;
 }

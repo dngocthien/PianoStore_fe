@@ -1,14 +1,20 @@
 @import "../../vars.css";
 
 .navbar {
-  margin: 2rem 3rem 0 3rem;
   align-items: center;
   justify-content: center;
+  padding: 0;
 }
 .nav {
+  background-color: var(--black);
+  padding: 2rem 3rem 1rem 3rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.nav a {
+  color: var(--white);
 }
 
 .navbar-logo img {
@@ -47,6 +53,7 @@
 .search1 {
   display: flex;
   margin-right: 3rem;
+  color: var(--white);
 }
 .search2 {
   display: none;
@@ -54,9 +61,11 @@
 }
 
 .search1 input {
+  background-color: var(--black);
+  color: var(--white);
   display: flex;
   border: none;
-  margin-left: 0.5rem;
+  margin-left: 1rem;
   width: 15rem;
 }
 .search2 input {
@@ -83,16 +92,17 @@
 
 .navbar-container-menu {
   display: none;
+  top: 0;
 }
 .navbar-container-menu img {
-  height: 45px;
+  width: 35px;
   cursor: pointer;
 }
 
 .navbar-container-menu-show {
   border-radius: 5px;
   background-color: var(--grey);
-  padding: 0 3rem 0 1rem;
+  padding: 1rem 3rem 1rem 1rem;
   position: absolute;
   left: 2rem;
 }
@@ -103,6 +113,10 @@
 }
 
 @media screen and (max-width: 987px) {
+  .nav {
+    padding: 1.5rem 2rem 1rem 2rem;
+  }
+
   .navbar-logo img {
     width: 60px;
   }
@@ -117,7 +131,7 @@
   .search2 {
     display: flex;
     flex: 1;
-    margin: 1rem 4rem 0 4rem;
+    margin: 1rem 4rem 1rem 4rem;
     align-self: center;
   }
 
@@ -127,21 +141,13 @@
 }
 
 @media screen and (max-width: 543px) {
-  .navbar {
-    margin: 1.5rem 2rem;
-  }
   .navbar-logo img {
     width: 50px;
   }
-  .search1 {
-    width: 11rem;
-    height: 2rem;
-    margin-right: 1rem;
-  }
   .search2 {
-    margin: 1rem 1rem 0 1rem;
+    margin: 1rem 2rem 1rem 2rem;
   }
   .navbar-container-menu img {
-    height: 35px;
+    height: 25px;
   }
 }

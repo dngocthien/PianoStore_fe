@@ -1,17 +1,23 @@
-.home-piano {
-  margin-top: 4rem;
-}
-
-.home-blog {
-  margin-top: 4rem;
-}
-
-.products-model {
+.home-slider {
   flex: 1;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-gap: 2rem;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
+}
+
+.home-slider img {
+  width: 100%;
+}
+
+.home-container {
+  margin: 3rem;
+}
+
+.home-container-piano {
+  margin-top: 4rem;
+}
+
+.home-container-blog {
+  margin-top: 4rem;
+}
+
+.test {
+  margin-top: 2rem;
 }

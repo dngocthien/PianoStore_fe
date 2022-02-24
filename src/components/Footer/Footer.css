@@ -1,0 +1,44 @@
+@import "../../vars.css";
+
+.footer {
+  margin-top: 5rem;
+  padding: 0;
+  background-color: var(--black);
+}
+
+.footer h1 {
+  color: var(--yellow);
+}
+
+.footer p {
+  color: var(--white);
+}
+
+.footer-container {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.footer-container-content {
+  margin: 3rem 3rem 0 3rem;
+}
+
+.footer-container-content a {
+  cursor: pointer;
+}
+
+.footer-copyright {
+  padding: 4rem;
+  text-align: center;
+}
+
+.footer-copyright a {
+  color: var(--yellow);
+}
+
+@media screen and (max-width: 543px) {
+  .footer-container {
+    flex-direction: column;
+  }
+}

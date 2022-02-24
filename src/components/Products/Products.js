@@ -5,9 +5,10 @@ import "./Products.css";
 
 const Products = () => {
   const [tag, setTag] = useState("PIANO");
+  const [response, setResponse] = useState([]);
   const [products, setProducts] = useState([]);
-  const [showProducts, setShowProducts] = useState([]);
-  const [page, setPage] = useState(1);
+  const [currentProducts, setCurrentProducts] = useState([]);
+  const [currentPage, setCurrentPage] = useState(0);
   const brands = [
     { label: "Boston", value: "Boston" },
     { label: "Essex", value: "Essex" },
@@ -27,39 +28,51 @@ const Products = () => {
     fetch("http://localhost:8081/products")
       .then((res) => res.json())
       .then((result) => {
-        setProducts(result);
-
-        // let n = result.length;
-        // let p = 1;
-        // if (n > 15) {
-        //   p = Math.floor(n / 15) + 1;
-        //   setPage(p);
-        // }
-        // let pageProduct = [];
-        // for (var i = 0; i < p; i++) {
-        //   let sliceTo = i * 15 < n ? i * 15 : n;
-        //   pageProduct[i] = result.slice(i, sliceTo);
-        // }
-        // setShowProducts(pageProduct);
+        setResponse(result);
+        updatePage(result);
       });
   }, []);
+
+  function updatePage(result) {
+    let n = result.length;
+    let p = 1;
+    let eachPage = 12;
+    if (n > eachPage) {
+      p = Math.ceil(n / eachPage);
+    }
+    let pageProduct = [];
+    for (var i = 0; i <= p; i++) {
+      let sliceTo = (i + 1) * eachPage < n ? (i + 1) * eachPage : n;
+      pageProduct[i] = result.slice(i * eachPage, sliceTo);
+      if ((i + 1) * eachPage > n) break;
+    }
+    setProducts(pageProduct);
+    setCurrentProducts(pageProduct[0]);
+    setCurrentPage(0);
+  }
 
   function changeBrand(brand) {
     fetch("http://localhost:8081/productByBrand/" + brand.value)
       .then((res) => res.json())
       .then((result) => {
-        setProducts(result);
+        updatePage(result);
+        setResponse(result);
       });
   }
   function changeRange(range) {
     if (range.value == 1) {
-      let sorted = products.slice().sort((a, b) => a.price - b.price);
-      setProducts(sorted);
+      let sorted = response.slice().sort((a, b) => a.price - b.price);
+      updatePage(sorted);
     } else {
-      let sorted = products.slice().sort((a, b) => a.price - b.price);
+      let sorted = response.slice().sort((a, b) => a.price - b.price);
       let rev = [...sorted].reverse();
-      setProducts(rev);
+      updatePage(rev);
     }
+  }
+
+  function changePage(index) {
+    setCurrentPage(index);
+    setCurrentProducts(products[index]);
   }
 
   return (
@@ -80,12 +93,34 @@ const Products = () => {
       </div>
 
       <div className="products-show">
-        {products.map((p, index) => {
+        {currentProducts.map((p, index) => {
           return <Product key={index} product={p} />;
         })}
       </div>
 
-      <div className="products-show-page"></div>
+      <div className="products-show-pages">
+        {products.map((page, index) => {
+          return (
+            <div key={index}>
+              {index == currentPage ? (
+                <div
+                  className="products-show-pages-current"
+                  onClick={() => changePage(index)}
+                >
+                  {index + 1}
+                </div>
+              ) : (
+                <div
+                  className="products-show-pages-page"
+                  onClick={() => changePage(index)}
+                >
+                  {index + 1}
+                </div>
+              )}
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 };

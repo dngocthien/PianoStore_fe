@@ -1,5 +1,5 @@
 import React from "react";
-import logo from "../../assets/logo.png";
+import model from "../../assets/model.jpg";
 import cart from "../../assets/cart.png";
 
 import "./Product.css";
@@ -13,15 +13,12 @@ export const Product = ({ product }) => {
 
   return (
     <div className="product">
-      <div className="product-info">
-        <img src={logo} />
-        <p>{product.name}</p>
-        <p className="product-info-price">
-          {numberWithCommas(product.price)} đ
-        </p>
-        <p>Còn lại: {product.remain}</p>
-      </div>
+      <img className="product-img" src={model} />
+      <p>{product.name}</p>
+      <p className="product-price">{numberWithCommas(product.price)} đ</p>
+      <p>Còn lại: {product.remain}</p>
       <img className="product-add" src={cart} />
+      <p className="product-secrete">.</p>
     </div>
   );
 };

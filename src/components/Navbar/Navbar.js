@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { Outlet, Link } from "react-router-dom";
-import logo from "../../assets/logo.png";
+import logo from "../../assets/logo2.png";
 import search from "../../assets/search.png";
-import cart from "../../assets/cart.png";
-import menu from "../../assets/menu.png";
+import search2 from "../../assets/search2.png";
+import cart2 from "../../assets/cart2.png";
+import menu from "../../assets/menu2.png";
 import x from "../../assets/x.png";
 import "./Navbar.css";
+import Footer from "../Footer/Footer";
 
 const Navbar = () => {
   const [showMenu, setShowMenu] = useState(false);
@@ -101,11 +103,11 @@ const Navbar = () => {
 
           <div className="navbar-container-search search1">
             <input id="searching1" type="text" placeholder="Tìm sản phẩm" />
-            <img src={search} alt="search" onClick={() => findProduct1()} />
+            <img src={search2} alt="search" onClick={() => findProduct1()} />
           </div>
 
           <div className="navbar-container-cart">
-            <img src={cart} alt="cart" />
+            <img src={cart2} alt="cart" />
           </div>
         </div>
       </div>
@@ -116,6 +118,7 @@ const Navbar = () => {
       </div>
 
       <Outlet />
+      <Footer />
     </div>
   );
 };

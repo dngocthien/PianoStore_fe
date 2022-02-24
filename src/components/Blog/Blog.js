@@ -4,7 +4,7 @@ function Blog() {
   return (
     <div className="blog">
       <h1>BLOG</h1>
-      <p>Hiện chưa có bài viết nào.</p>
+      <p className="no-blog">Hiện chưa có bài viết nào.</p>
     </div>
   );
 }

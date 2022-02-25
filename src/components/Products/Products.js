@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import Select from "react-select";
+import { useParams } from "react-router-dom";
 import { Product } from "../Product/Product";
 import "./Products.css";
 
@@ -9,6 +10,7 @@ const Products = () => {
   const [products, setProducts] = useState([]);
   const [currentProducts, setCurrentProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
+  const [searchQuery, setSearchQuery] = useState("");
   const brands = [
     { label: "Boston", value: "Boston" },
     { label: "Essex", value: "Essex" },
@@ -20,18 +22,20 @@ const Products = () => {
     { label: "Giá cao đến thấp", value: 2 },
   ];
 
-  // useEffect(() => {
-  //   setProducts(result);
-  //   console.log(result);
-  // }, []);
+  const { search = "" } = useParams();
+  if (search != searchQuery) {
+    setSearchQuery(search);
+    changeSearch(search);
+  }
+
   useEffect(() => {
-    fetch("http://localhost:8081/products")
+    fetch("http://localhost:8081/products/" + search)
       .then((res) => res.json())
       .then((result) => {
         setResponse(result);
         updatePage(result);
       });
-  }, []);
+  }, [searchQuery]);
 
   function updatePage(result) {
     let n = result.length;
@@ -51,6 +55,14 @@ const Products = () => {
     setCurrentPage(0);
   }
 
+  function changeSearch(qr) {
+    fetch("http://localhost:8081/products/" + qr)
+      .then((res) => res.json())
+      .then((result) => {
+        updatePage(result);
+        setResponse(result);
+      });
+  }
   function changeBrand(brand) {
     fetch("http://localhost:8081/productByBrand/" + brand.value)
       .then((res) => res.json())
@@ -92,34 +104,44 @@ const Products = () => {
         />
       </div>
 
-      <div className="products-show">
-        {currentProducts.map((p, index) => {
-          return <Product key={index} product={p} />;
-        })}
-      </div>
-
-      <div className="products-show-pages">
-        {products.map((page, index) => {
-          return (
-            <div key={index}>
-              {index == currentPage ? (
-                <div
-                  className="products-show-pages-current"
-                  onClick={() => changePage(index)}
-                >
-                  {index + 1}
-                </div>
-              ) : (
-                <div
-                  className="products-show-pages-page"
-                  onClick={() => changePage(index)}
-                >
-                  {index + 1}
-                </div>
-              )}
+      <div>
+        {currentProducts.length > 0 ? (
+          <div>
+            <div className="products-show">
+              {currentProducts.map((p, index) => {
+                return <Product key={index} product={p} />;
+              })}
             </div>
-          );
-        })}
+
+            <div className="products-show-pages">
+              {products.map((page, index) => {
+                return (
+                  <div key={index}>
+                    {index == currentPage ? (
+                      <div
+                        className="products-show-pages-current"
+                        onClick={() => changePage(index)}
+                      >
+                        {index + 1}
+                      </div>
+                    ) : (
+                      <div
+                        className="products-show-pages-page"
+                        onClick={() => changePage(index)}
+                      >
+                        {index + 1}
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        ) : (
+          <div className="products-null">
+            <p>Không tồn tại sản phẩm.</p>
+          </div>
+        )}
       </div>
     </div>
   );

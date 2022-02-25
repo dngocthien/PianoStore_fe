@@ -11,27 +11,12 @@ import Footer from "../Footer/Footer";
 
 const Navbar = () => {
   const [showMenu, setShowMenu] = useState(false);
-  function findProduct1() {
-    let name = document.getElementById("searching1").value;
+  const [searchQuery, setSearchQuery] = useState("");
+
+  function onSeach() {
     document.getElementById("searching1").value = "";
-    fetch("http://localhost:8081/productByName/" + name)
-      .then((res) => res.json())
-      .then((result) => {
-        console.log(result);
-        // setProducts(result);
-        // return <Products result={result} />;
-      });
-  }
-  function findProduct2() {
-    let name = document.getElementById("searching2").value;
     document.getElementById("searching2").value = "";
-    fetch("http://localhost:8081/productByName/" + name)
-      .then((res) => res.json())
-      .then((result) => {
-        console.log(result);
-        // setProducts(result);
-        // return <Products />;
-      });
+    setSearchQuery("");
   }
 
   return (
@@ -102,8 +87,17 @@ const Navbar = () => {
           </div>
 
           <div className="navbar-container-search search1">
-            <input id="searching1" type="text" placeholder="Tìm sản phẩm" />
-            <img src={search2} alt="search" onClick={() => findProduct1()} />
+            <input
+              id="searching1"
+              type="text"
+              placeholder="Tìm sản phẩm"
+              onChange={() =>
+                setSearchQuery(document.getElementById("searching1").value)
+              }
+            />
+            <Link to={`/products/${searchQuery}`} state={{ qr: searchQuery }}>
+              <img src={search2} alt="search" onClick={() => onSeach()} />
+            </Link>
           </div>
 
           <div className="navbar-container-cart">
@@ -113,8 +107,17 @@ const Navbar = () => {
       </div>
 
       <div className="navbar-container-search search2">
-        <input id="searching2" type="text" placeholder="Tìm sản phẩm" />
-        <img src={search} alt="search" onClick={() => findProduct2()} />
+        <input
+          id="searching2"
+          type="text"
+          placeholder="Tìm sản phẩm"
+          onChange={() =>
+            setSearchQuery(document.getElementById("searching2").value)
+          }
+        />
+        <Link to={`/products/${searchQuery}`} state={{ qr: searchQuery }}>
+          <img src={search} alt="search" onClick={() => onSeach()} />
+        </Link>
       </div>
 
       <Outlet />

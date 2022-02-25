@@ -42,6 +42,12 @@
   padding: 1rem;
 }
 
+.products-null {
+  text-align: center;
+  color: var(--red);
+  margin: 5rem 0;
+}
+
 @media screen and (max-width: 1256px) {
   .products-show {
     grid-template-columns: repeat(3, 1fr);

@@ -1,0 +1,57 @@
+@import "../../vars.css";
+
+.cart {
+  margin: 3rem;
+}
+
+.cart-table {
+  border: 1px solid var(--slight);
+  align-items: center;
+  justify-content: center;
+}
+
+.cart-table table {
+  width: 100%;
+  border: none;
+}
+
+.cart-table thead {
+  background-color: var(--slight);
+}
+
+.cart-table thead th {
+  line-height: 38px;
+}
+
+.cart-table td {
+  text-align: center;
+  line-height: 36px;
+}
+
+.cart-table img {
+  cursor: pointer;
+  width: 30px;
+  padding-top: 0.5rem;
+}
+
+.cart-total {
+  text-align: right;
+  align-items: flex-end;
+  margin: 4rem;
+}
+
+.cart-total button {
+  cursor: pointer;
+  border: none;
+  background-color: var(--black);
+  color: var(--white);
+  padding: 0.5rem 1rem;
+  margin-top: 1rem;
+  font-size: 24;
+  font-weight: 700;
+}
+
+.cart-total button:hover {
+  background-color: var(--yellow);
+  color: var(--black);
+}

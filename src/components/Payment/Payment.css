@@ -1,0 +1,85 @@
+@import "../../vars.css";
+
+.payment {
+  margin: 3rem;
+}
+
+.payment-body {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+.payment-body h3 {
+  margin-top: 3rem;
+  margin-bottom: 1rem;
+}
+
+.payment-body-section {
+  padding-right: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.payment-body-section input,
+textarea {
+  width: 100%;
+  line-height: 28px;
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+  border: 1px solid var(--light);
+}
+
+.payment-body-section table {
+  border-collapse: collapse;
+  width: 100%;
+}
+.payment-body-section table th {
+  background-color: var(--light);
+  line-height: 42px;
+}
+
+.payment-body-section table td {
+  line-height: 36px;
+  padding: 0 1rem;
+  text-align: right;
+}
+
+.payment-body-section table {
+  border: 1px solid var(--light);
+}
+
+.table-break {
+  border-bottom: 1px solid var(--light);
+}
+
+.payment-body-section-row {
+  display: flex;
+  width: 100%;
+}
+.payment-body-section-row input {
+  width: 3rem;
+}
+
+.payment-body-section-payment button,
+.thankyou button {
+  cursor: pointer;
+  border: none;
+  background-color: var(--black);
+  color: var(--white);
+  font-size: 24;
+  font-weight: 700;
+  padding: 0.5rem 1rem;
+  margin-top: 1rem;
+  margin-left: 1rem;
+}
+
+.payment-body-section-payment button:hover,
+.thankyou button:hover {
+  background-color: var(--yellow);
+  color: var(--black);
+}
+
+.thankyou {
+  margin: 5rem 3rem;
+  text-align: center;
+}

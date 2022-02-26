@@ -8,6 +8,8 @@ import NoPage from "./components/NoPage/NoPage";
 import Navbar from "./components/Navbar/Navbar";
 import Blog from "./components/Blog/Blog";
 import Cart from "./components/Cart/Cart";
+import Payment from "./components/Payment/Payment";
+import Thankyou from "./components/Payment/Thankyou";
 
 const App = () => {
   return (
@@ -19,8 +21,10 @@ const App = () => {
           <Route path="products/:search" element={<Products />} />
           <Route path="blog" element={<Blog />} />
           <Route path="contact" element={<Contact />} />
-          <Route path="cart/" element={<Cart />} />
+          <Route path="cart" element={<Cart />} />
           <Route path="cart/:qr" element={<Cart />} />
+          <Route path="payment" element={<Payment />} />
+          <Route path="thankyou" element={<Thankyou />} />
           <Route path="*" element={<NoPage />} />
         </Route>
       </Routes>

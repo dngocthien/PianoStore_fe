@@ -5,27 +5,47 @@
 }
 
 .cart-table {
-  border: 1px solid var(--slight);
+  border: 1px solid var(--light);
   align-items: center;
   justify-content: center;
 }
 
 .cart-table table {
   width: 100%;
-  border: none;
+  border-collapse: collapse;
 }
 
 .cart-table thead {
-  background-color: var(--slight);
+  background-color: var(--light);
 }
 
 .cart-table thead th {
-  line-height: 38px;
+  line-height: 42px;
 }
 
 .cart-table td {
   text-align: center;
   line-height: 36px;
+  justify-content: center;
+  align-items: center;
+  margin: 0.5rem auto;
+}
+
+.cart-table-quantity {
+  display: flex;
+  flex-direction: row;
+}
+.cart-table-quantity-number {
+  border: 1px solid var(--light);
+  padding: 0 1rem;
+  line-height: 32px;
+  background-color: var(--white);
+}
+.cart-table-quantity-volumn {
+  cursor: pointer;
+  padding: 0 1rem;
+  line-height: 32px;
+  background-color: var(--light);
 }
 
 .cart-table img {
@@ -34,24 +54,68 @@
   padding-top: 0.5rem;
 }
 
-.cart-total {
+.cart-end {
   text-align: right;
   align-items: flex-end;
-  margin: 4rem;
-}
-
-.cart-total button {
-  cursor: pointer;
-  border: none;
-  background-color: var(--black);
-  color: var(--white);
-  padding: 0.5rem 1rem;
-  margin-top: 1rem;
+  margin: 4rem 2rem 4rem 0;
   font-size: 24;
   font-weight: 700;
 }
 
-.cart-total button:hover {
+.cart-end-nav {
+  display: flex;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+}
+
+.cart-end-nav button {
+  cursor: pointer;
+  border: none;
+  background-color: var(--black);
+  color: var(--white);
+  font-size: 24;
+  font-weight: 700;
+  padding: 0.5rem 1rem;
+  margin-top: 1rem;
+  margin-left: 1rem;
+}
+
+.cart-end-nav button:hover {
   background-color: var(--yellow);
   color: var(--black);
+}
+
+.cart-table2 {
+  display: none;
+}
+.cart-table2 tr {
+  display: flex;
+  flex-direction: column;
+}
+.cart-table2 td {
+  display: flex;
+  width: 80%;
+  justify-content: space-between;
+  padding: 0 2rem;
+}
+.cart-table2 .highlight {
+  background-color: var(--light2);
+}
+
+@media screen and (max-width: 700px) {
+  .cart-table1 {
+    display: none;
+  }
+  .cart-table2 {
+    display: block;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .cart {
+    margin: 2rem;
+  }
+  .cart-table2 td {
+    padding: 0;
+  }
 }

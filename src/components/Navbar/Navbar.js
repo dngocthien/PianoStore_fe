@@ -101,7 +101,9 @@ const Navbar = () => {
           </div>
 
           <div className="navbar-container-cart">
-            <img src={cart2} alt="cart" />
+            <Link to={"/cart"}>
+              <img src={cart2} alt="cart" />
+            </Link>
           </div>
         </div>
       </div>

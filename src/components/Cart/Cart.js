@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 import "./Cart.css";
 import rm from "../../assets/remove.png";
@@ -8,11 +8,13 @@ function Cart() {
   const [cart, setCart] = useState(
     JSON.parse(window.localStorage.getItem("cart")) ?? []
   );
+  const [total, setTotal] = useState(0);
 
   const { qr } = useParams();
 
   useEffect(() => {
-    if ([].includes(qr)) return;
+    if (typeof qr == "undefined") return;
+    if (checkContain()) return;
     fetch("http://localhost:8081/products/" + qr)
       .then((res) => res.json())
       .then((result) => {
@@ -22,18 +24,17 @@ function Cart() {
 
   useEffect(() => {
     window.localStorage.setItem("cart", JSON.stringify(cart));
+    setTotal(sum());
   }, [cart]);
 
   function checkContain() {
+    let check = false;
     cart.map((p) => {
-      console.log(p[0] + "/" + qr + "/");
       if (p[0] === qr) {
-        console.log("true");
-        return "true";
+        check = true;
       }
     });
-    console.log("false");
-    return "false";
+    return check;
   }
 
   function updateCart(name, price, quantity) {
@@ -55,46 +56,135 @@ function Cart() {
   }
 
   function sum() {
-    let total = 0;
+    let count = 0;
     cart.map((p) => {
-      total += p[1];
+      count += p[1] * p[2];
     });
-    return total;
+    return count;
   }
+
+  function updateQuantity(index, val) {
+    let existing = cart.slice();
+    let newVal = JSON.parse(existing[index][2]) + val;
+    if (newVal > 0) existing[index][2] = newVal;
+    setCart(existing);
+  }
+
   return (
     <div className="cart">
       <h1> GIỎ HÀNG</h1>
 
       <div className="cart-table">
-        <table cellspacing="0" cellpadding="0" align="center">
-          <thead>
-            <th>-</th>
-            <th>SẢN PHẨM</th>
-            <th>GIÁ</th>
-            <th>SỐ LƯỢNG</th>
-            <th>TẠM TÍNH</th>
-          </thead>
-          <tbody>
-            {cart.map((p, index) => {
-              return (
-                <tr>
-                  <td>
-                    <img src={rm} onClick={() => remove(index)} />
-                  </td>
-                  <td>{p[0]}</td>
-                  <td>{numberWithCommas(p[1])} đ</td>
-                  <td>{p[2]}</td>
-                  <td>{numberWithCommas(p[2] * p[1])} đ</td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
+        <div className="cart-table1">
+          <table>
+            <thead>
+              <tr>
+                <th>-</th>
+                <th>SẢN PHẨM</th>
+                <th>GIÁ</th>
+                <th>SỐ LƯỢNG</th>
+                <th>TẠM TÍNH</th>
+              </tr>
+            </thead>
+            <tbody>
+              {cart.map((p, index) => {
+                return (
+                  <tr key={index}>
+                    <td>
+                      <img src={rm} onClick={() => remove(index)} />
+                    </td>
+                    <td>{p[0]}</td>
+                    <td>{numberWithCommas(p[1])}đ</td>
+                    <td className="cart-table-quantity">
+                      <p
+                        className="cart-table-quantity-volumn"
+                        onClick={() => updateQuantity(index, -1)}
+                      >
+                        -
+                      </p>
+                      <p className="cart-table-quantity-number">{p[2]}</p>
+                      <p
+                        className="cart-table-quantity-volumn"
+                        onClick={() => updateQuantity(index, 1)}
+                      >
+                        +
+                      </p>
+                    </td>
+                    <td>{numberWithCommas(p[2] * p[1])}đ</td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
 
-        <div className="cart-total">
-          <p>Tổng cộng: {numberWithCommas(sum())} đ</p>
-          <p>{checkContain()}</p>
-          <button>THANH TOÁN</button>
+        <div className="cart-table2">
+          <table>
+            <tbody>
+              {cart.map((p, index) => {
+                return (
+                  <tr
+                    key={index}
+                    className={index % 2 === 0 ? "highlight" : ""}
+                  >
+                    <td>
+                      <img src={rm} onClick={() => remove(index)} />
+                    </td>
+                    <td>
+                      <p>
+                        <b>Sản phẩm:</b>
+                      </p>
+                      <p>{p[0]}</p>
+                    </td>
+                    <td>
+                      <p>
+                        <b>Giá:</b>
+                      </p>
+                      <p>{numberWithCommas(p[1])}đ</p>
+                    </td>
+                    <td>
+                      <p>
+                        <b>Số lượng:</b>
+                      </p>
+                      <div className="cart-table-quantity">
+                        <p
+                          className="cart-table-quantity-volumn"
+                          onClick={() => updateQuantity(index, -1)}
+                        >
+                          -
+                        </p>
+                        <p className="cart-table-quantity-number">{p[2]}</p>
+                        <p
+                          className="cart-table-quantity-volumn"
+                          onClick={() => updateQuantity(index, 1)}
+                        >
+                          +
+                        </p>
+                      </div>
+                    </td>
+                    <td>
+                      <p>
+                        <b>Tạm tính:</b>
+                      </p>
+                      <p>{numberWithCommas(p[2] * p[1])}đ</p>
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+
+        <div className="cart-end">
+          <p>Tổng cộng: {numberWithCommas(total)}đ</p>
+          <div className="cart-end-nav">
+            <Link to={"/products"}>
+              <button>TIẾP TỤC MUA HÀNG</button>
+            </Link>
+            <Link to={"/payment"}>
+              <button>THANH TOÁN</button>
+            </Link>
+          </div>
         </div>
       </div>
     </div>

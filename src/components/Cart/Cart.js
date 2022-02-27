@@ -34,6 +34,7 @@ function Cart() {
         check = true;
       }
     });
+
     return check;
   }
 
@@ -73,80 +74,36 @@ function Cart() {
   return (
     <div className="cart">
       <h1> GIỎ HÀNG</h1>
-
-      <div className="cart-table">
-        <div className="cart-table1">
-          <table>
-            <thead>
-              <tr>
-                <th>-</th>
-                <th>SẢN PHẨM</th>
-                <th>GIÁ</th>
-                <th>SỐ LƯỢNG</th>
-                <th>TẠM TÍNH</th>
-              </tr>
-            </thead>
-            <tbody>
-              {cart.map((p, index) => {
-                return (
-                  <tr key={index}>
-                    <td>
-                      <img src={rm} onClick={() => remove(index)} />
-                    </td>
-                    <td>{p[0]}</td>
-                    <td>{numberWithCommas(p[1])}đ</td>
-                    <td className="cart-table-quantity">
-                      <p
-                        className="cart-table-quantity-volumn"
-                        onClick={() => updateQuantity(index, -1)}
-                      >
-                        -
-                      </p>
-                      <p className="cart-table-quantity-number">{p[2]}</p>
-                      <p
-                        className="cart-table-quantity-volumn"
-                        onClick={() => updateQuantity(index, 1)}
-                      >
-                        +
-                      </p>
-                    </td>
-                    <td>{numberWithCommas(p[2] * p[1])}đ</td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
+      {cart.length < 1 ? (
+        <div className="cart-null">
+          <p>Bạn chưa có sản phẩm nào trong giỏ hàng.</p>
+          <Link to={"/products"}>
+            <button>TIẾP TỤC MUA HÀNG</button>
+          </Link>
         </div>
-
-        <div className="cart-table2">
-          <table>
-            <tbody>
-              {cart.map((p, index) => {
-                return (
-                  <tr
-                    key={index}
-                    className={index % 2 === 0 ? "highlight" : ""}
-                  >
-                    <td>
-                      <img src={rm} onClick={() => remove(index)} />
-                    </td>
-                    <td>
-                      <p>
-                        <b>Sản phẩm:</b>
-                      </p>
-                      <p>{p[0]}</p>
-                    </td>
-                    <td>
-                      <p>
-                        <b>Giá:</b>
-                      </p>
-                      <p>{numberWithCommas(p[1])}đ</p>
-                    </td>
-                    <td>
-                      <p>
-                        <b>Số lượng:</b>
-                      </p>
-                      <div className="cart-table-quantity">
+      ) : (
+        <div className="cart-table">
+          <div className="cart-table1">
+            <table>
+              <thead>
+                <tr>
+                  <th>-</th>
+                  <th>SẢN PHẨM</th>
+                  <th>GIÁ</th>
+                  <th>SỐ LƯỢNG</th>
+                  <th>TẠM TÍNH</th>
+                </tr>
+              </thead>
+              <tbody>
+                {cart.map((p, index) => {
+                  return (
+                    <tr key={index}>
+                      <td>
+                        <img src={rm} onClick={() => remove(index)} />
+                      </td>
+                      <td>{p[0]}</td>
+                      <td>{numberWithCommas(p[1])}đ</td>
+                      <td className="cart-table-quantity">
                         <p
                           className="cart-table-quantity-volumn"
                           onClick={() => updateQuantity(index, -1)}
@@ -160,33 +117,85 @@ function Cart() {
                         >
                           +
                         </p>
-                      </div>
-                    </td>
-                    <td>
-                      <p>
-                        <b>Tạm tính:</b>
-                      </p>
-                      <p>{numberWithCommas(p[2] * p[1])}đ</p>
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-        </div>
+                      </td>
+                      <td>{numberWithCommas(p[2] * p[1])}đ</td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
 
-        <div className="cart-end">
-          <p>Tổng cộng: {numberWithCommas(total)}đ</p>
-          <div className="cart-end-nav">
-            <Link to={"/products"}>
-              <button>TIẾP TỤC MUA HÀNG</button>
-            </Link>
-            <Link to={"/payment"}>
-              <button>THANH TOÁN</button>
-            </Link>
+          <div className="cart-table2">
+            <table>
+              <tbody>
+                {cart.map((p, index) => {
+                  return (
+                    <tr
+                      key={index}
+                      className={index % 2 === 0 ? "highlight" : ""}
+                    >
+                      <td>
+                        <img src={rm} onClick={() => remove(index)} />
+                      </td>
+                      <td>
+                        <p>
+                          <b>Sản phẩm:</b>
+                        </p>
+                        <p>{p[0]}</p>
+                      </td>
+                      <td>
+                        <p>
+                          <b>Giá:</b>
+                        </p>
+                        <p>{numberWithCommas(p[1])}đ</p>
+                      </td>
+                      <td>
+                        <p>
+                          <b>Số lượng:</b>
+                        </p>
+                        <div className="cart-table-quantity">
+                          <p
+                            className="cart-table-quantity-volumn"
+                            onClick={() => updateQuantity(index, -1)}
+                          >
+                            -
+                          </p>
+                          <p className="cart-table-quantity-number">{p[2]}</p>
+                          <p
+                            className="cart-table-quantity-volumn"
+                            onClick={() => updateQuantity(index, 1)}
+                          >
+                            +
+                          </p>
+                        </div>
+                      </td>
+                      <td>
+                        <p>
+                          <b>Tạm tính:</b>
+                        </p>
+                        <p>{numberWithCommas(p[2] * p[1])}đ</p>
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+
+          <div className="cart-end">
+            <p>Tổng cộng: {numberWithCommas(total)}đ</p>
+            <div className="cart-end-nav">
+              <Link to={"/products"}>
+                <button>TIẾP TỤC MUA HÀNG</button>
+              </Link>
+              <Link to={"/payment"}>
+                <button>THANH TOÁN</button>
+              </Link>
+            </div>
           </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }

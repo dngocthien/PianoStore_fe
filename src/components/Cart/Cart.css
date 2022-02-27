@@ -4,6 +4,11 @@
   margin: 3rem;
 }
 
+.cart-null {
+  margin: 7rem 0;
+  text-align: center;
+}
+
 .cart-table {
   border: 1px solid var(--light);
   align-items: center;
@@ -68,7 +73,7 @@
   flex-wrap: wrap;
 }
 
-.cart-end-nav button {
+.cart button {
   cursor: pointer;
   border: none;
   background-color: var(--black);
@@ -80,7 +85,7 @@
   margin-left: 1rem;
 }
 
-.cart-end-nav button:hover {
+.cart button:hover {
   background-color: var(--yellow);
   color: var(--black);
 }

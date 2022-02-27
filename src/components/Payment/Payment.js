@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "./Payment.css";
 
 function Payment() {
@@ -7,6 +7,9 @@ function Payment() {
     JSON.parse(window.localStorage.getItem("cart")) ?? []
   );
   const [bank, setBank] = useState(true);
+  const [invalidName, setInvalidName] = useState("");
+  const [invalidAddress, setInvalidAddress] = useState("");
+  const [invalidPhone, setInvalidPhone] = useState("");
 
   function numberWithCommas(x) {
     var parts = x.toString().split(".");
@@ -25,6 +28,55 @@ function Payment() {
   function changeMethod(check) {
     setBank(check);
   }
+
+  const navigate = useNavigate();
+  function isNameOk(name) {
+    if (name == "" || name == null) {
+      return false;
+    } else return true;
+  }
+  function isAddressOK(address) {
+    if (address == "" || address == null) {
+      return false;
+    } else return true;
+  }
+  function isPhoneOK(phone) {
+    if (
+      phone != null &&
+      /[^a-zA-Z]/.test(phone) &&
+      phone.match(/\d/g).length === 10
+    ) {
+      return true;
+    } else return false;
+  }
+  function checkingInfo() {
+    let name = document.getElementById("info-name").value;
+    if (isNameOk(name)) {
+      setInvalidName("200");
+    } else {
+      setInvalidName("Bạn cần nhập tên!");
+    }
+
+    let address = document.getElementById("info-address").value;
+    if (isAddressOK(address)) {
+      setInvalidAddress("200");
+    } else {
+      setInvalidAddress("Bạn cần nhập địa chỉ!");
+    }
+
+    let phone = document.getElementById("info-phone").value;
+    if (phone == "" || phone == null) {
+      setInvalidPhone("Bạn cần nhập số điện thoại!");
+    } else if (isPhoneOK(phone)) {
+      setInvalidPhone("200");
+    } else {
+      setInvalidPhone("Số điện thoại không hợp lệ!");
+    }
+
+    if (isNameOk(name) && isAddressOK(address) && isPhoneOK(phone)) {
+      navigate("/thankyou");
+    }
+  }
   return (
     <div className="payment">
       <h1>THANH TOÁN</h1>
@@ -32,9 +84,18 @@ function Payment() {
       <div className="payment-body">
         <div className="payment-body-section">
           <h3>THÔNG TIN THANH TOÁN</h3>
-          <input placeholder="Tên"></input>
-          <input placeholder="Địa chỉ"></input>
-          <input placeholder="Điện thoại"></input>
+          {invalidName != "200" && (
+            <p className="info-invalid">{invalidName}</p>
+          )}
+          <input id="info-name" placeholder="Tên"></input>
+          {invalidAddress != "200" && (
+            <p className="info-invalid">{invalidAddress}</p>
+          )}
+          <input id="info-address" placeholder="Địa chỉ"></input>
+          {invalidPhone != "200" && (
+            <p className="info-invalid">{invalidPhone}</p>
+          )}
+          <input id="info-phone" placeholder="Điện thoại"></input>
           <textarea rows="5" placeholder="Lời nhắn"></textarea>
         </div>
         <div className="payment-body-section payment-body-section-cart">
@@ -80,7 +141,7 @@ function Payment() {
             <input
               type="checkbox"
               checked={bank}
-              onClick={() => changeMethod(true)}
+              onChange={() => changeMethod(true)}
             ></input>
             <p>Chuyển khoản ngân hàng</p>
           </div>
@@ -88,14 +149,15 @@ function Payment() {
             <input
               type="checkbox"
               checked={!bank}
-              onClick={() => changeMethod(false)}
+              onChange={() => changeMethod(false)}
             ></input>
             <p>Trả tiền mặt khi nhận hàng</p>
           </div>
           <div className="payment-body-section-payment">
-            <Link to={"/thankyou"}>
+            {/* <Link to={"/thankyou"}>
               <button>TIẾN HÀNH THANH TOÁN</button>
-            </Link>
+            </Link> */}
+            <button onClick={() => checkingInfo()}>TIẾN HÀNH THANH TOÁN</button>
           </div>
         </div>
       </div>

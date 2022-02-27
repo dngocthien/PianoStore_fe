@@ -83,3 +83,7 @@ textarea {
   margin: 5rem 3rem;
   text-align: center;
 }
+
+.info-invalid {
+  color: var(--red);
+}

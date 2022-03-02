@@ -1,11 +1,12 @@
 import { useState } from "react";
 import { Outlet, Link } from "react-router-dom";
+import { useNavigate } from "react-router";
 import logo from "../../assets/logo2.png";
-import search from "../../assets/search.png";
-import search2 from "../../assets/search2.png";
-import cart2 from "../../assets/cart2.png";
-import menu from "../../assets/menu2.png";
-import x from "../../assets/x.png";
+import icon_search from "../../assets/search.png";
+import icon_search2 from "../../assets/search2.png";
+import icon_cart2 from "../../assets/cart2.png";
+import icon_menu from "../../assets/menu2.png";
+import icon_x from "../../assets/x.png";
 import "./Navbar.css";
 import Footer from "../Footer/Footer";
 
@@ -13,20 +14,23 @@ const Navbar = () => {
   const [showMenu, setShowMenu] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
 
+  const navigate = useNavigate();
+
   function onSeach() {
     document.getElementById("searching1").value = "";
     document.getElementById("searching2").value = "";
     setSearchQuery("");
+    navigate(`/products/${searchQuery}`);
   }
 
   return (
-    <div className="navbar">
-      <div className="nav">
+    <div className="nav">
+      <div className="navbar">
         <div className="navbar-container-menu">
           {!showMenu ? (
-            <img src={menu} onClick={() => setShowMenu(true)} />
+            <img src={icon_menu} onClick={() => setShowMenu(true)} />
           ) : (
-            <img src={x} onClick={() => setShowMenu(false)} />
+            <img src={icon_x} onClick={() => setShowMenu(false)} />
           )}
           {showMenu && (
             <div className="navbar-container-menu-show">
@@ -94,15 +98,18 @@ const Navbar = () => {
               onChange={() =>
                 setSearchQuery(document.getElementById("searching1").value)
               }
+              onKeyPress={(event) => {
+                if (event.key === "Enter") {
+                  onSeach();
+                }
+              }}
             />
-            <Link to={`/products/${searchQuery}`} state={{ qr: searchQuery }}>
-              <img src={search2} alt="search" onClick={() => onSeach()} />
-            </Link>
+            <img src={icon_search2} alt="search" onClick={() => onSeach()} />
           </div>
 
           <div className="navbar-container-cart">
             <Link to={"/cart"}>
-              <img src={cart2} alt="cart" />
+              <img src={icon_cart2} alt="cart" />
             </Link>
           </div>
         </div>
@@ -116,10 +123,13 @@ const Navbar = () => {
           onChange={() =>
             setSearchQuery(document.getElementById("searching2").value)
           }
+          onKeyPress={(event) => {
+            if (event.key === "Enter") {
+              onSeach();
+            }
+          }}
         />
-        <Link to={`/products/${searchQuery}`} state={{ qr: searchQuery }}>
-          <img src={search} alt="search" onClick={() => onSeach()} />
-        </Link>
+        <img src={icon_search} alt="search" onClick={() => onSeach()} />
       </div>
 
       <Outlet />

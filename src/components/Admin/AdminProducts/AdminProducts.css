@@ -1,0 +1,119 @@
+@import "../../../vars.css";
+
+.admin-products {
+  margin-top: 3rem 0;
+  padding: 1rem;
+  background-color: var(--white);
+  border-radius: 5px;
+}
+
+.admin-products-tools {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.admin-products-search {
+  margin-bottom: 1rem;
+  margin-right: 1rem;
+  border: 1px solid;
+  border-radius: 60px;
+  display: flex;
+  justify-content: space-between;
+  height: 2.5rem;
+  width: 20rem;
+  align-items: center;
+}
+.admin-products-search input {
+  border: none;
+  margin-left: 1rem;
+}
+.admin-products-search input:focus {
+  outline-width: 0;
+}
+.admin-products-search img {
+  width: 40px;
+  margin-right: 1rem;
+}
+
+.admin-products-tools button {
+  cursor: pointer;
+  margin-bottom: 1rem;
+  border: none;
+  background-color: var(--yellow);
+  padding: 1rem 2rem;
+  border-radius: 10px;
+}
+
+.admin-products-table table {
+  margin: 0;
+  width: 100%;
+  border: 1px solid var(--light);
+  align-items: center;
+  justify-content: center;
+  border-collapse: collapse;
+  border-radius: 15px;
+}
+
+.admin-products-table tr {
+  justify-content: space-around;
+  align-items: center;
+}
+
+.admin-products-table th {
+  cursor: pointer;
+  background-color: var(--light);
+  line-height: 48px;
+  align-items: center;
+  justify-content: center;
+  padding-top: 0.5rem;
+}
+
+.admin-products-table th img {
+  cursor: pointer;
+  width: 30px;
+}
+
+.admin-products-table td {
+  text-align: center;
+  line-height: 36px;
+  justify-content: center;
+  align-items: center;
+}
+
+.admin-products-table td img {
+  cursor: pointer;
+  width: 30px;
+  margin: 0.5rem;
+}
+
+.admin-products-add {
+  width: 100%;
+  padding: 3rem;
+  border: 1px solid var(--grey);
+  border-radius: 5px;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--white);
+}
+
+.admin-products-add input {
+  padding: 0.5rem 1rem;
+  margin-top: 2rem;
+  border: 1px solid var(--grey);
+  border-radius: 5px;
+  line-height: 28px;
+}
+
+.admin-products-add-footer {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+}
+
+.admin-products-add-footer-cancel button {
+  background-color: var(--light);
+  margin-right: 1rem;
+}

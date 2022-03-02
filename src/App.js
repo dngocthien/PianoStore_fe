@@ -10,6 +10,10 @@ import Blog from "./components/Blog/Blog";
 import Cart from "./components/Cart/Cart";
 import Payment from "./components/Payment/Payment";
 import Thankyou from "./components/Payment/Thankyou";
+import NavbarAdmin from "./components/Navbar/NavbarAdmin";
+import Admin from "./components/Admin/Admin";
+import AdminProducts from "./components/Admin/AdminProducts/AdminProducts";
+import AdminOrders from "./components/Admin/AdminOrders/AdminOrders";
 
 const App = () => {
   return (
@@ -26,6 +30,12 @@ const App = () => {
           <Route path="payment" element={<Payment />} />
           <Route path="thankyou" element={<Thankyou />} />
           <Route path="*" element={<NoPage />} />
+        </Route>
+        <Route path="/admin" element={<NavbarAdmin />}>
+          <Route index element={<Admin />} />
+          <Route path="products" element={<AdminProducts />} />
+          <Route path="products/:search" element={<AdminProducts />} />
+          <Route path="orders" element={<AdminOrders />} />
         </Route>
       </Routes>
     </BrowserRouter>

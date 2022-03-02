@@ -45,7 +45,7 @@
 .products-null {
   text-align: center;
   color: var(--red);
-  margin: 5rem 0;
+  margin: 5rem 0 12rem 0;
 }
 
 @media screen and (max-width: 1256px) {

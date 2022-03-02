@@ -14,7 +14,7 @@
   align-items: center;
 }
 
-.nav a {
+.navbar-container-a a {
   color: var(--white);
 }
 
@@ -163,7 +163,7 @@
   height: 100%;
 }
 
-@media screen and (max-width: 987px) {
+@media screen and (max-width: 1068px) {
   .navbar {
     padding: 1.5rem 2rem 1rem 2rem;
   }

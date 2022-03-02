@@ -14,6 +14,7 @@ function Admin() {
           <h3>Orders</h3>
         </Link>
       </div>
+      <div className="blank"></div>
     </div>
   );
 }

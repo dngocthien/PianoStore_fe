@@ -16,3 +16,7 @@
 .highlight {
   background-color: var(--light2);
 }
+
+.blank {
+  padding: 15rem;
+}

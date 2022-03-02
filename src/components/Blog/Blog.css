@@ -2,7 +2,12 @@
   margin: 4rem 3rem 0 3rem;
 }
 
+.blog a {
+  color: black;
+}
+
 .no-blog {
-  margin: 8rem 0;
+  margin-top: 8rem;
+  margin-bottom: 12rem;
   text-align: center;
 }

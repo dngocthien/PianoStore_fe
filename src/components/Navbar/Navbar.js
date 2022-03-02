@@ -80,7 +80,7 @@ const Navbar = () => {
             </p>
             <p>
               <Link className="text-link" to="/blog">
-                BLOG
+                THÔNG BÁO
               </Link>
             </p>
             <p>

@@ -93,10 +93,16 @@ const Home = () => {
         <div className="home-container-blog">
           <h1>
             <Link className="text-link" to={"/blog"}>
-              BLOG
+              THÔNG BÁO
             </Link>
           </h1>
-          <p>Hiện chưa có bài viết nào.</p>
+          <p className="no-blog">
+            Bạn có thể vào trang admin tại
+            <b>
+              <Link to={"/admin"}> link </Link>
+            </b>
+            này
+          </p>
         </div>
       </div>
     </div>

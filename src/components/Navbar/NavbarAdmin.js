@@ -13,7 +13,7 @@ function NavbarAdmin() {
     <div className="admin-nav">
       <div className="admin-navbar">
         <div className="navbar-logo">
-          <Link to="/admin">
+          <Link to="/">
             <img src={logo} alt="logo" />
           </Link>
         </div>

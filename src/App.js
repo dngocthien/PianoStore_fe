@@ -14,6 +14,7 @@ import NavbarAdmin from "./components/Navbar/NavbarAdmin";
 import Admin from "./components/Admin/Admin";
 import AdminProducts from "./components/Admin/AdminProducts/AdminProducts";
 import AdminOrders from "./components/Admin/AdminOrders/AdminOrders";
+import Details from "./components/Admin/Details/Details";
 
 const App = () => {
   return (
@@ -36,6 +37,7 @@ const App = () => {
           <Route path="products" element={<AdminProducts />} />
           <Route path="products/:search" element={<AdminProducts />} />
           <Route path="orders" element={<AdminOrders />} />
+          <Route path="orders/details/:id" element={<Details />} />
         </Route>
       </Routes>
     </BrowserRouter>

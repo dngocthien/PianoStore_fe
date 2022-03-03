@@ -105,7 +105,7 @@ const Products = () => {
       </div>
 
       <div>
-        {currentProducts.length > 0 ? (
+        {products.length > 0 ? (
           <div>
             <div className="products-show">
               {currentProducts.map((p, index) => {

@@ -25,10 +25,6 @@ function Payment() {
     return count;
   }
 
-  function changeMethod(check) {
-    setBank(check);
-  }
-
   const navigate = useNavigate();
   function isNameOk(name) {
     if (name == "" || name == null) {
@@ -49,22 +45,19 @@ function Payment() {
       return true;
     } else return false;
   }
-  function checkingInfo() {
-    let name = document.getElementById("info-name").value;
+  function checkingInfo(name, address, phone) {
     if (isNameOk(name)) {
       setInvalidName("200");
     } else {
       setInvalidName("Bạn cần nhập tên!");
     }
 
-    let address = document.getElementById("info-address").value;
     if (isAddressOK(address)) {
       setInvalidAddress("200");
     } else {
       setInvalidAddress("Bạn cần nhập địa chỉ!");
     }
 
-    let phone = document.getElementById("info-phone").value;
     if (phone == "" || phone == null) {
       setInvalidPhone("Bạn cần nhập số điện thoại!");
     } else if (isPhoneOK(phone)) {
@@ -74,8 +67,53 @@ function Payment() {
     }
 
     if (isNameOk(name) && isAddressOK(address) && isPhoneOK(phone)) {
-      navigate("/thankyou");
+      return true;
+    } else {
+      return false;
     }
+  }
+
+  function processPayment() {
+    let name = document.getElementById("info-name").value;
+    let address = document.getElementById("info-address").value;
+    let phone = document.getElementById("info-phone").value;
+    let message = document.getElementById("info-message").value;
+    let isOK = checkingInfo(name, address, phone, message);
+
+    if (isOK) {
+      const current = new Date();
+      const date = current.toISOString().split("T")[0];
+      const info = { name, address, phone, message, bank, date, status: 0 };
+      fetch("http://localhost:8081/addCart", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(info),
+      })
+        .then((response) => response.json())
+        .then((res) => postOrders(res.id));
+    }
+  }
+
+  function postOrders(id) {
+    let items = [];
+    cart.map((p) => {
+      let item = {
+        cartID: id,
+        productName: p[0],
+        unitPrice: p[1],
+        quantity: p[2],
+      };
+      items = [...items, item];
+    });
+    fetch("http://localhost:8081/addItems", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(items),
+    });
+    // .then((response) => response.json())
+    // .then((res) => console.log(res));
+
+    navigate("/thankyou");
   }
   return (
     <div className="payment">
@@ -96,8 +134,13 @@ function Payment() {
             <p className="info-invalid">{invalidPhone}</p>
           )}
           <input id="info-phone" placeholder="Điện thoại"></input>
-          <textarea rows="5" placeholder="Lời nhắn"></textarea>
+          <textarea
+            id="info-message"
+            rows="5"
+            placeholder="Lời nhắn"
+          ></textarea>
         </div>
+
         <div className="payment-body-section payment-body-section-cart">
           <h3>ĐƠN HÀNG CỦA BẠN</h3>
           <table>
@@ -135,13 +178,14 @@ function Payment() {
             </tfoot>
           </table>
         </div>
+
         <div className="payment-body-section">
           <h3>HÌNH THỨC THANH TOÁN</h3>
           <div className="payment-body-section-row">
             <input
               type="checkbox"
               checked={bank}
-              onChange={() => changeMethod(true)}
+              onChange={() => setBank(true)}
             ></input>
             <p>Chuyển khoản ngân hàng</p>
           </div>
@@ -149,7 +193,7 @@ function Payment() {
             <input
               type="checkbox"
               checked={!bank}
-              onChange={() => changeMethod(false)}
+              onChange={() => setBank(false)}
             ></input>
             <p>Trả tiền mặt khi nhận hàng</p>
           </div>
@@ -157,7 +201,9 @@ function Payment() {
             {/* <Link to={"/thankyou"}>
               <button>TIẾN HÀNH THANH TOÁN</button>
             </Link> */}
-            <button onClick={() => checkingInfo()}>TIẾN HÀNH THANH TOÁN</button>
+            <button onClick={() => processPayment()}>
+              TIẾN HÀNH THANH TOÁN
+            </button>
           </div>
         </div>
       </div>

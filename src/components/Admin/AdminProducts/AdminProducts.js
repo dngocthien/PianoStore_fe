@@ -53,26 +53,32 @@ function AdminProducts() {
     switch (data) {
       case "name":
         if (range == 1) {
-          let sorted = response.slice().sort((a, b) => a.name - b.name);
+          let sorted = response
+            .slice()
+            .sort((a, b) => a.name.localeCompare(b.name));
           setRange(0);
           updatePage(sorted);
         } else {
-          let sorted = response.slice().sort((a, b) => a.name - b.name);
-          let rev = [...sorted].reverse();
+          let sorted = response
+            .slice()
+            .sort((a, b) => b.name.localeCompare(a.name));
           setRange(1);
-          updatePage(rev);
+          updatePage(sorted);
         }
         break;
       case "brand":
         if (range == 1) {
-          let sorted = response.slice().sort((a, b) => a.brand - b.brand);
+          let sorted = response
+            .slice()
+            .sort((a, b) => a.name.localeCompare(b.name));
           setRange(0);
           updatePage(sorted);
         } else {
-          let sorted = response.slice().sort((a, b) => a.brand - b.brand);
-          let rev = [...sorted].reverse();
+          let sorted = response
+            .slice()
+            .sort((a, b) => b.name.localeCompare(a.name));
           setRange(1);
-          updatePage(rev);
+          updatePage(sorted);
         }
         break;
       case "price":
@@ -81,10 +87,9 @@ function AdminProducts() {
           setRange(0);
           updatePage(sorted);
         } else {
-          let sorted = response.slice().sort((a, b) => a.price - b.price);
-          let rev = [...sorted].reverse();
+          let sorted = response.slice().sort((a, b) => b.price - a.price);
           setRange(1);
-          updatePage(rev);
+          updatePage(sorted);
         }
         break;
       case "remain":
@@ -93,10 +98,9 @@ function AdminProducts() {
           setRange(0);
           updatePage(sorted);
         } else {
-          let sorted = response.slice().sort((a, b) => a.remain - b.remain);
-          let rev = [...sorted].reverse();
+          let sorted = response.slice().sort((a, b) => b.remain - a.remain);
           setRange(1);
-          updatePage(rev);
+          updatePage(sorted);
         }
         break;
     }

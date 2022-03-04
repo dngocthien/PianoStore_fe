@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import Select from "react-select";
 import icon_details from "../../../assets/details.png";
 import icon_search from "../../../assets/search.png";
 import icon_sort from "../../../assets/sort.png";
@@ -12,6 +13,11 @@ function AdminOrders() {
   const [currentCarts, setCurrentCarts] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
   const [range, setRange] = useState(1);
+  const statuses = [
+    { label: "Chờ xử lý", value: 0 },
+    { label: "Hoàn thành", value: 1 },
+    { label: "Đã huỷ", value: 2 },
+  ];
 
   useEffect(() => {
     fetch("http://localhost:8081/carts/" + searchQuery)
@@ -22,6 +28,17 @@ function AdminOrders() {
         updatePage(rev);
       });
   }, [searchQuery]);
+
+  function updateInfo(index, newStatus) {
+    let existing = currentCarts[index];
+    existing.status = newStatus.value;
+
+    fetch("http://localhost:8081/updateCart", {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(existing),
+    });
+  }
 
   function showStatus(s) {
     switch (s) {
@@ -183,7 +200,13 @@ function AdminOrders() {
                         <td>{p.phone}</td>
                         <td>{p.date}</td>
                         <td>{p.bank ? "Ngân hàng" : "Tiền mặt"}</td>
-                        <td>{showStatus(p.status)}</td>
+                        <td>
+                          <Select
+                            options={statuses}
+                            placeholder={showStatus(p.status)}
+                            onChange={(e) => updateInfo(index, e)}
+                          />
+                        </td>
                       </tr>
                     );
                   })}

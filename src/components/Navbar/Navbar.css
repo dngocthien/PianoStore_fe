@@ -6,6 +6,16 @@
   margin: 0;
 }
 
+.nav-breadcrumbs {
+  margin-top: 1rem;
+  margin-left: 1rem;
+  color: var(--grey);
+}
+.nav-breadcrumbs a {
+  color: var(--grey);
+  text-decoration: inherit;
+}
+
 .navbar {
   background-color: var(--black);
   padding: 2rem 3rem 1rem 3rem;

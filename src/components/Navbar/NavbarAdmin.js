@@ -1,14 +1,23 @@
+import React from "react";
 import { useState } from "react";
-import { Outlet, Link } from "react-router-dom";
+import { Outlet, Link, NavLink } from "react-router-dom";
+import useBreadcrumbs from "use-react-router-breadcrumbs";
 import logo from "../../assets/logo.png";
 import icon_avatar from "../../assets/avatar.png";
 import icon_notification from "../../assets/notification.png";
 import icon_menu from "../../assets/menu.png";
-import icon_x from "../../assets/x.png";
 import "./Navbar.css";
 
 function NavbarAdmin() {
+  const routes = [
+    { path: "*", breadcrumb: null },
+    { path: "/admin", breadcrumb: "Admin" },
+    { path: "/admin/orders", breadcrumb: "Đơn hàng" },
+    { path: "/admin/orders/details/:id", breadcrumb: "Chi tiết" },
+  ];
+  const breadcrumbs = useBreadcrumbs(routes);
   const [showMenu, setShowMenu] = useState(false);
+
   return (
     <div className="admin-nav">
       <div className="admin-navbar">
@@ -64,17 +73,27 @@ function NavbarAdmin() {
         <div className="admin-navbar-container-left">
           <div>
             <Link className="text-link" to={"/admin/products"}>
-              <h3>Products</h3>
+              <h3>SẢN PHẨM</h3>
             </Link>
           </div>
           <div>
             <Link className="text-link" to={"/admin/orders"}>
-              <h3>Orders</h3>
+              <h3>ĐƠN HÀNG</h3>
             </Link>
           </div>
         </div>
 
         <div className="admin-navbar-container-right">
+          <div className="nav-breadcrumbs">
+            {breadcrumbs.map(({ match, breadcrumb }) => (
+              <span key={match.pathname}>
+                <NavLink to={match.pathname}>{breadcrumb}</NavLink>
+                <span>&ensp;</span>
+                <span>&#62;</span>
+                <span>&ensp;</span>
+              </span>
+            ))}
+          </div>
           <Outlet />
         </div>
       </div>

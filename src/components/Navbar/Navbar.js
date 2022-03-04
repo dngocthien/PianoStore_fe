@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { Outlet, Link } from "react-router-dom";
+import { Outlet, Link, NavLink } from "react-router-dom";
+import useBreadcrumbs from "use-react-router-breadcrumbs";
 import { useNavigate } from "react-router";
 import logo from "../../assets/logo2.png";
 import icon_search from "../../assets/search.png";
@@ -11,6 +12,15 @@ import "./Navbar.css";
 import Footer from "../Footer/Footer";
 
 const Navbar = () => {
+  const routes = [
+    { path: "*", breadcrumb: null },
+    { path: "/products", breadcrumb: "Piano" },
+    { path: "/blog", breadcrumb: "Thông báo" },
+    { path: "/contact", breadcrumb: "Liên hệ" },
+    { path: "/cart", breadcrumb: "Giỏ hàng" },
+    { path: "/cart/payment", breadcrumb: "Thanh toán" },
+  ];
+  const breadcrumbs = useBreadcrumbs(routes);
   const [showMenu, setShowMenu] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -132,6 +142,16 @@ const Navbar = () => {
         <img src={icon_search} alt="search" onClick={() => onSeach()} />
       </div>
 
+      <div className="nav-breadcrumbs">
+        {breadcrumbs.map(({ match, breadcrumb }) => (
+          <span key={match.pathname}>
+            <NavLink to={match.pathname}>{breadcrumb}</NavLink>
+            <span>&ensp;</span>
+            <span>&#62;</span>
+            <span>&ensp;</span>
+          </span>
+        ))}
+      </div>
       <Outlet />
       <Footer />
     </div>

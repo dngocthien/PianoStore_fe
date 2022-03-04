@@ -55,11 +55,11 @@ function AdminOrders() {
     let n = result.length;
     let p = 1;
     let eachPage = 12;
-    if (n > eachPage) {
+    if (n >= eachPage) {
       p = Math.ceil(n / eachPage);
     }
     let pageCarts = [];
-    for (var i = 0; i <= p; i++) {
+    for (var i = 0; i < p; i++) {
       let sliceTo = (i + 1) * eachPage < n ? (i + 1) * eachPage : n;
       pageCarts[i] = result.slice(i * eachPage, sliceTo);
       if ((i + 1) * eachPage > n) break;
@@ -135,7 +135,7 @@ function AdminOrders() {
   }
   return (
     <div className="admin">
-      <h1>ORDER</h1>
+      <h1>ĐƠN HÀNG</h1>
 
       <div className="admin-products">
         <div className="admin-products-tools">

@@ -109,11 +109,9 @@ function Payment() {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(items),
-    });
+    }).then(navigate("/thankyou"));
     // .then((response) => response.json())
     // .then((res) => console.log(res));
-
-    navigate("/thankyou");
   }
   return (
     <div className="payment">

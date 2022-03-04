@@ -5,7 +5,6 @@ import { Product } from "../Product/Product";
 import "./Products.css";
 
 const Products = () => {
-  const [tag, setTag] = useState("PIANO");
   const [response, setResponse] = useState([]);
   const [products, setProducts] = useState([]);
   const [currentProducts, setCurrentProducts] = useState([]);
@@ -45,7 +44,7 @@ const Products = () => {
       p = Math.ceil(n / eachPage);
     }
     let pageProduct = [];
-    for (var i = 0; i <= p; i++) {
+    for (var i = 0; i < p; i++) {
       let sliceTo = (i + 1) * eachPage < n ? (i + 1) * eachPage : n;
       pageProduct[i] = result.slice(i * eachPage, sliceTo);
       if ((i + 1) * eachPage > n) break;
@@ -89,7 +88,7 @@ const Products = () => {
 
   return (
     <div className="products">
-      <h1>{tag}</h1>
+      <h1>PIANO</h1>
 
       <div className="products-select">
         <Select

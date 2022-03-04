@@ -189,7 +189,7 @@ function Cart() {
               <Link to={"/products"}>
                 <button>TIẾP TỤC MUA HÀNG</button>
               </Link>
-              <Link to={"/payment"}>
+              <Link to={"/cart/payment"}>
                 <button>THANH TOÁN</button>
               </Link>
             </div>

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Payment.css";
+import { DB_URL } from "../../constants";
 
 function Payment() {
   const [cart, setCart] = useState(
@@ -84,7 +85,7 @@ function Payment() {
       const current = new Date();
       const date = current.toISOString().split("T")[0];
       const info = { name, address, phone, message, bank, date, status: 0 };
-      fetch("http://localhost:8081/addCart", {
+      fetch(DB_URL + "addCart", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(info),
@@ -105,7 +106,7 @@ function Payment() {
       };
       items = [...items, item];
     });
-    fetch("http://localhost:8081/addItems", {
+    fetch(DB_URL + "addItems", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(items),

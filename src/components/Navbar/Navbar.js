@@ -59,7 +59,7 @@ const Navbar = () => {
                   to="/blog"
                   onClick={() => setShowMenu(false)}
                 >
-                  BLOG
+                  THÔNG BÁO
                 </Link>
               </p>
               <p>

@@ -5,6 +5,7 @@ import icon_details from "../../../assets/details.png";
 import icon_search from "../../../assets/search.png";
 import icon_sort from "../../../assets/sort.png";
 import "./AdminOrders.css";
+import { DB_URL } from "../../../constants";
 
 function AdminOrders() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -20,7 +21,7 @@ function AdminOrders() {
   ];
 
   useEffect(() => {
-    fetch("http://localhost:8081/carts/" + searchQuery)
+    fetch(DB_URL + "carts/" + searchQuery)
       .then((res) => res.json())
       .then((result) => {
         let rev = [...result].reverse();
@@ -33,7 +34,7 @@ function AdminOrders() {
     let existing = currentCarts[index];
     existing.status = newStatus.value;
 
-    fetch("http://localhost:8081/updateCart", {
+    fetch(DB_URL + "updateCart", {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(existing),

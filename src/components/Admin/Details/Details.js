@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import "./Details.css";
+import { DB_URL } from "../../../constants";
 
 function Details() {
   const [info, setInfo] = useState(null);
@@ -8,12 +9,12 @@ function Details() {
 
   const { id } = useParams();
   useEffect(() => {
-    fetch("http://localhost:8081/cartByID/" + id)
+    fetch(DB_URL + "cartByID/" + id)
       .then((res) => res.json())
       .then((result) => {
         setInfo(result);
       });
-    fetch("http://localhost:8081/items/" + id)
+    fetch(DB_URL + "items/" + id)
       .then((res2) => res2.json())
       .then((result2) => {
         setCart(result2);

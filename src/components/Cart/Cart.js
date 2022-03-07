@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
-
-import "./Cart.css";
 import rm from "../../assets/remove.png";
+import "./Cart.css";
+import { DB_URL } from "../../constants";
 
 function Cart() {
   const [cart, setCart] = useState(
@@ -15,7 +15,7 @@ function Cart() {
   useEffect(() => {
     if (typeof qr == "undefined") return;
     if (checkContain()) return;
-    fetch("http://localhost:8081/products/" + qr)
+    fetch(DB_URL + "products/" + qr)
       .then((res) => res.json())
       .then((result) => {
         updateCart(result[0].name, result[0].price, 1);

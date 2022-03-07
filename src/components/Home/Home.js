@@ -9,6 +9,7 @@ import slider3 from "../../assets/slider3.png";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./Home.css";
+import { DB_URL } from "../../constants";
 
 const Home = () => {
   var settings = {
@@ -54,7 +55,7 @@ const Home = () => {
   };
   const [products, setProducts] = useState([]);
   useEffect(() => {
-    fetch("http://localhost:8081/products")
+    fetch(DB_URL + "products")
       .then((res) => res.json())
       .then((result) => {
         setProducts(result);

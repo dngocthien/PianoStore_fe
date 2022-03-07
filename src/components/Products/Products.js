@@ -3,6 +3,7 @@ import Select from "react-select";
 import { useParams } from "react-router-dom";
 import { Product } from "../Product/Product";
 import "./Products.css";
+import { DB_URL } from "../../constants";
 
 const Products = () => {
   const [response, setResponse] = useState([]);
@@ -28,7 +29,7 @@ const Products = () => {
   }
 
   useEffect(() => {
-    fetch("http://localhost:8081/products/" + search)
+    fetch(DB_URL + "products/" + search)
       .then((res) => res.json())
       .then((result) => {
         setResponse(result);
@@ -55,7 +56,7 @@ const Products = () => {
   }
 
   function changeSearch(qr) {
-    fetch("http://localhost:8081/products/" + qr)
+    fetch(DB_URL + "products/" + qr)
       .then((res) => res.json())
       .then((result) => {
         updatePage(result);
@@ -63,7 +64,7 @@ const Products = () => {
       });
   }
   function changeBrand(brand) {
-    fetch("http://localhost:8081/productByBrand/" + brand.value)
+    fetch(DB_URL + "productByBrand/" + brand.value)
       .then((res) => res.json())
       .then((result) => {
         updatePage(result);

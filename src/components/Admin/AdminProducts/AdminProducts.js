@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import icon_delete from "../../../assets/delete.png";
 import icon_edit from "../../../assets/edit.png";
 import icon_search from "../../../assets/search.png";
 import icon_sort from "../../../assets/sort.png";
 import "./AdminProducts.css";
+import { DB_URL } from "../../../constants";
 
 function AdminProducts() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -23,7 +23,7 @@ function AdminProducts() {
   const [imageData, setImageData] = useState(null);
 
   useEffect(() => {
-    fetch("http://localhost:8081/products/" + searchQuery)
+    fetch(DB_URL + "products/" + searchQuery)
       .then((res) => res.json())
       .then((result) => {
         setResponse(result);
@@ -115,12 +115,12 @@ function AdminProducts() {
 
   function saveProduct() {
     const product = { name, brand, price, remain };
-    fetch("http://localhost:8081/addProduct", {
+    fetch(DB_URL + "addProduct", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(product),
     }).then(() => {
-      fetch("http://localhost:8081/products")
+      fetch(DB_URL + "products")
         .then((res) => res.json())
         .then((result) => {
           setResponse(result);
@@ -142,17 +142,17 @@ function AdminProducts() {
 
   function updateProduct() {
     const product = { name, brand, price, remain };
-    (fetch("http://localhost:8081/addProduct", {
+    (fetch(DB_URL + "addProduct", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(product),
     }),
-    fetch("http://localhost:8081/delete/" + existingName, {
+    fetch(DB_URL + "delete/" + existingName, {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(existingName),
     })).then(() => {
-      fetch("http://localhost:8081/products")
+      fetch(DB_URL + "products")
         .then((res) => res.json())
         .then((result) => {
           setResponse(result);
@@ -163,12 +163,12 @@ function AdminProducts() {
   }
 
   function removeProducts(name) {
-    fetch("http://localhost:8081/delete/" + name, {
+    fetch(DB_URL + "delete/" + name, {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(name),
     }).then(() => {
-      fetch("http://localhost:8081/products")
+      fetch(DB_URL + "products")
         .then((res) => res.json())
         .then((result) => {
           setResponse(result);

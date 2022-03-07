@@ -4,6 +4,7 @@ import Select from "react-select";
 import icon_details from "../../../assets/details.png";
 import icon_search from "../../../assets/search.png";
 import icon_sort from "../../../assets/sort.png";
+import icon_delete from "../../../assets/delete.png";
 import "./AdminOrders.css";
 import { DB_URL } from "../../../constants";
 
@@ -38,6 +39,22 @@ function AdminOrders() {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(existing),
+    });
+  }
+
+  function removeOrder(id) {
+    fetch(DB_URL + "deleteCart/" + id, {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(id),
+    }).then(() => {
+      fetch(DB_URL + "carts")
+        .then((res) => res.json())
+        .then((result) => {
+          let rev = [...result].reverse();
+          setResponse(rev);
+          updatePage(rev);
+        });
     });
   }
 
@@ -194,6 +211,10 @@ function AdminOrders() {
                             >
                               <img src={icon_details} />
                             </Link>
+                            <img
+                              src={icon_delete}
+                              onClick={() => removeOrder(p.id)}
+                            />
                           </p>
                         </td>
                         <td>{p.name}</td>

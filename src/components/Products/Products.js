@@ -11,6 +11,7 @@ const Products = () => {
   const [currentProducts, setCurrentProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
   const [searchQuery, setSearchQuery] = useState("");
+  const [brandList, setBrandList] = useState([]);
   const brands = [
     { label: "Boston", value: "Boston" },
     { label: "Essex", value: "Essex" },
@@ -36,6 +37,14 @@ const Products = () => {
         updatePage(result);
       });
   }, [searchQuery]);
+
+  useEffect(() => {
+    fetch(DB_URL + "brands")
+      .then((res) => res.json())
+      .then((result) => {
+        setBrandList(result);
+      });
+  }, []);
 
   function updatePage(result) {
     let n = result.length;

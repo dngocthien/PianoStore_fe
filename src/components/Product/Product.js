@@ -17,7 +17,6 @@ export const Product = ({ product }) => {
         className="product-img"
         src={product.image !== null ? product.image : model}
       />
-      {console.log(product.name + ":" + product.image)}
       <p>{product.name}</p>
       <p className="product-price">{numberWithCommas(product.price)}đ</p>
       <p>{product.remain ? "Còn hàng" : "Hết hàng"}</p>

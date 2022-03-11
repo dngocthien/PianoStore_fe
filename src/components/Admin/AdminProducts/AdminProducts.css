@@ -106,6 +106,26 @@
   line-height: 28px;
 }
 
+.admin-products-add-body {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+.admin-products-add-body input {
+  width: 280px;
+}
+
+.admin-products-add-body-img img {
+  max-width: 300px;
+}
+
+.admin-products-add-body button {
+  margin-top: 2rem;
+  margin-bottom: 0;
+  width: 310px;
+  background-color: var(--light);
+}
+
 .admin-products-add-footer {
   margin-top: 1rem;
   display: flex;
@@ -116,4 +136,22 @@
 .admin-products-add-footer-cancel button {
   background-color: var(--light);
   margin-right: 1rem;
+}
+
+@media screen and (max-width: 700px) {
+  .admin-products-add-body input {
+    width: 170px;
+  }
+  .admin-products-add-body button {
+    width: 200px;
+  }
+  .admin-products-add-body img {
+    width: 260px;
+  }
+}
+@media screen and (max-width: 480px) {
+  .admin-products-add {
+    padding: 1rem;
+    width: 95%;
+  }
 }

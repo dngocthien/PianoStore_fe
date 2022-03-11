@@ -3,8 +3,11 @@ import icon_delete from "../../../assets/delete.png";
 import icon_edit from "../../../assets/edit.png";
 import icon_search from "../../../assets/search.png";
 import icon_sort from "../../../assets/sort.png";
+import icon_preview from "../../../assets/nopreview.png";
+import icon_model from "../../../assets/model.jpg";
 import "./AdminProducts.css";
 import { DB_URL } from "../../../constants";
+import axios from "axios";
 
 function AdminProducts() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -19,8 +22,9 @@ function AdminProducts() {
   const [name, setName] = useState("");
   const [brand, setBrand] = useState("");
   const [price, setPrice] = useState(0);
-  const [remain, setRemain] = useState(0);
-  const [imageData, setImageData] = useState(null);
+  const [remain, setRemain] = useState(true);
+  const [image, setImage] = useState(null);
+  const [imagePreview, setImagePreview] = useState(null);
 
   useEffect(() => {
     fetch(DB_URL + "products/" + searchQuery)
@@ -52,7 +56,7 @@ function AdminProducts() {
   function changeRange(data) {
     switch (data) {
       case "name":
-        if (range == 1) {
+        if (range === 1) {
           let sorted = response
             .slice()
             .sort((a, b) => a.name.localeCompare(b.name));
@@ -67,7 +71,7 @@ function AdminProducts() {
         }
         break;
       case "brand":
-        if (range == 1) {
+        if (range === 1) {
           let sorted = response
             .slice()
             .sort((a, b) => a.name.localeCompare(b.name));
@@ -82,7 +86,7 @@ function AdminProducts() {
         }
         break;
       case "price":
-        if (range == 1) {
+        if (range === 1) {
           let sorted = response.slice().sort((a, b) => a.price - b.price);
           setRange(0);
           updatePage(sorted);
@@ -108,29 +112,34 @@ function AdminProducts() {
 
   const handleUploadClick = (event) => {
     let file = event.target.files[0];
-    const imageData = new FormData();
-    imageData.append("imageFile", file);
-    setImageData(imageData);
+    setImage(file);
+    setImagePreview(URL.createObjectURL(file));
   };
 
-  function saveProduct() {
-    const product = { name, brand, price, remain };
-    fetch(DB_URL + "addProduct", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(product),
-    }).then(() => {
-      fetch(DB_URL + "products")
-        .then((res) => res.json())
-        .then((result) => {
-          setResponse(result);
-          setShowAddProduct(false);
-          updatePage(result);
-        });
-    });
+  async function saveProduct() {
+    if (name !== "") {
+      const formData = new FormData();
+      formData.append("name", name);
+      formData.append("brand", brand);
+      formData.append("price", price);
+      formData.append("remain", remain);
+      formData.append("file", image);
+      fetch(DB_URL + "addProduct", {
+        method: "post",
+        body: formData,
+      }).then(() => {
+        fetch(DB_URL + "products")
+          .then((res) => res.json())
+          .then((result) => {
+            setResponse(result);
+            setShowAddProduct(false);
+            updatePage(result);
+          });
+      });
+    }
   }
 
-  function editProduct(p) {
+  function switchEditProduct(p) {
     setShowEditroduct(true);
     setShowAddProduct(false);
     setExistingName(p.name);
@@ -138,10 +147,36 @@ function AdminProducts() {
     setBrand(p.brand);
     setPrice(p.price);
     setRemain(p.remain);
+    setImage(p.image);
+    setImagePreview(p.image);
   }
 
   function updateProduct() {
-    const product = { name, brand, price, remain };
+    if (name !== "") {
+      const formData = new FormData();
+      formData.append("existing", existingName);
+      formData.append("name", name);
+      formData.append("brand", brand);
+      formData.append("price", price);
+      formData.append("remain", remain);
+      formData.append("file", image);
+      fetch(DB_URL + "updateProduct", {
+        method: "put",
+        body: formData,
+      }).then(() => {
+        fetch(DB_URL + "products")
+          .then((res) => res.json())
+          .then((result) => {
+            setResponse(result);
+            setShowEditroduct(false);
+            updatePage(result);
+          });
+      });
+    }
+  }
+
+  function updateProduct1() {
+    const product = { name, brand, price, remain, image };
     (fetch(DB_URL + "addProduct", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -178,11 +213,25 @@ function AdminProducts() {
   }
 
   function switchAddProduct() {
-    if (showAddProduct == true) {
+    if (showAddProduct === true) {
       setShowAddProduct(false);
     } else {
       setShowAddProduct(true);
       setShowEditroduct(false);
+      setName("");
+      setBrand("");
+      setPrice(0);
+      setRemain(true);
+      setImage(null);
+      setImagePreview(null);
+    }
+  }
+
+  function changeRemainStatus() {
+    if (remain) {
+      setRemain(false);
+    } else {
+      setRemain(true);
     }
   }
 
@@ -217,41 +266,48 @@ function AdminProducts() {
           {showAddProduct && (
             <div className="admin-products-add">
               <h3>THÊM SẢN PHẨM</h3>
-              <p>
-                <input
-                  id="add_name"
-                  placeholder="Tên sản phẩm"
-                  onChange={(e) => setName(e.target.value)}
-                ></input>
-              </p>
-              <p>
-                <input
-                  id="add_brand"
-                  placeholder="Thương hiệu"
-                  onChange={(e) => setBrand(e.target.value)}
-                ></input>
-              </p>
-              <p>
-                <input
-                  id="add_price"
-                  placeholder="Giá"
-                  onChange={(e) => setPrice(e.target.value)}
-                ></input>
-              </p>
-              <p>
-                <input
-                  id="add_price"
-                  placeholder="Số lượng"
-                  onChange={(e) => setRemain(e.target.value)}
-                ></input>
-              </p>
+              <div className="admin-products-add-body">
+                <div className="admin-products-add-body-info">
+                  <p>
+                    <input
+                      id="add_name"
+                      placeholder="Tên sản phẩm"
+                      onChange={(e) => setName(e.target.value)}
+                    ></input>
+                  </p>
+                  <p>
+                    <input
+                      id="add_brand"
+                      placeholder="Thương hiệu"
+                      onChange={(e) => setBrand(e.target.value)}
+                    ></input>
+                  </p>
+                  <p>
+                    <input
+                      id="add_price"
+                      placeholder="Giá"
+                      onChange={(e) => setPrice(e.target.value)}
+                    ></input>
+                  </p>
+                  <p>
+                    <button onClick={() => changeRemainStatus()}>
+                      {remain ? "Còn hàng" : "Hết hàng"}
+                    </button>
+                  </p>
+                  <input
+                    accept="image/*"
+                    id="add_image"
+                    type="file"
+                    onChange={(e) => handleUploadClick(e)}
+                  />
+                </div>
 
-              {/* <input
-                accept="image/*"
-                id="add_image"
-                type="file"
-                onChange={handleUploadClick}
-              /> */}
+                <div className="admin-products-add-body-img">
+                  <img
+                    src={imagePreview !== null ? imagePreview : icon_preview}
+                  ></img>
+                </div>
+              </div>
 
               <div className="admin-products-add-footer">
                 <div className="admin-products-add-footer-cancel">
@@ -272,35 +328,40 @@ function AdminProducts() {
 
           {showEditProduct && (
             <div className="admin-products-add">
-              <h3>CẬP NHẬT SẢN PHẨM</h3>
-              <p>
-                <input
-                  value={name}
-                  placeholder="Tên sản phẩm"
-                  onChange={(e) => setName(e.target.value)}
-                ></input>
-              </p>
-              <p>
-                <input
-                  value={brand}
-                  placeholder="Thương hiệu"
-                  onChange={(e) => setBrand(e.target.value)}
-                ></input>
-              </p>
-              <p>
-                <input
-                  value={price}
-                  placeholder="Giá"
-                  onChange={(e) => setPrice(e.target.value)}
-                ></input>
-              </p>
-              <p>
-                <input
-                  value={remain}
-                  placeholder="Số lượng"
-                  onChange={(e) => setRemain(e.target.value)}
-                ></input>
-              </p>
+              <h3>{name}</h3>
+              <div className="admin-products-add-body">
+                <div className="admin-products-add-body-info">
+                  <p>
+                    <input
+                      value={brand}
+                      placeholder="Thương hiệu"
+                      onChange={(e) => setBrand(e.target.value)}
+                    ></input>
+                  </p>
+                  <p>
+                    <input
+                      value={price}
+                      placeholder="Giá"
+                      onChange={(e) => setPrice(e.target.value)}
+                    ></input>
+                  </p>
+                  <p>
+                    <button onClick={() => changeRemainStatus()}>
+                      {remain ? "Còn hàng" : "Hết hàng"}
+                    </button>
+                  </p>
+                  <input
+                    accept="image/*"
+                    id="edit_image"
+                    type="file"
+                    onChange={(e) => handleUploadClick(e)}
+                  />
+                </div>
+
+                <div className="admin-products-add-body-img">
+                  <img src={imagePreview !== null ? imagePreview : image}></img>
+                </div>
+              </div>
 
               <div className="admin-products-add-footer">
                 <div className="admin-products-add-footer-cancel">
@@ -340,7 +401,7 @@ function AdminProducts() {
                       <img src={icon_sort} />
                     </th>
                     <th onClick={() => changeRange("remain")}>
-                      CÒN LẠI
+                      TÌNH TRẠNG
                       <img src={icon_sort} />
                     </th>
                   </tr>
@@ -360,14 +421,20 @@ function AdminProducts() {
                             />
                             <img
                               src={icon_edit}
-                              onClick={() => editProduct(p)}
+                              onClick={() => switchEditProduct(p)}
                             />
                           </p>
                         </td>
-                        <td>{p.name}</td>
+                        <td>
+                          {p.name}
+                          <img
+                            className="admin-products-table-img"
+                            src={p.image !== null ? p.image : icon_model}
+                          />
+                        </td>
                         <td>{p.brand}</td>
                         <td>{numberWithCommas(p.price)}</td>
-                        <td>{p.remain}</td>
+                        <td>{p.remain ? "Còn hàng" : "Hết hàng"}</td>
                       </tr>
                     );
                   })}
@@ -379,7 +446,7 @@ function AdminProducts() {
               {products.map((page, index) => {
                 return (
                   <div key={index}>
-                    {index == currentPage ? (
+                    {index === currentPage ? (
                       <div
                         className="products-show-pages-current"
                         onClick={() => changePage(index)}

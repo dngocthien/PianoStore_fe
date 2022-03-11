@@ -23,7 +23,7 @@ const Products = () => {
   ];
 
   const { search = "" } = useParams();
-  if (search != searchQuery) {
+  if (search !== searchQuery) {
     setSearchQuery(search);
     changeSearch(search);
   }

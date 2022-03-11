@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import model from "../../assets/model.jpg";
 import cart from "../../assets/cart.png";
@@ -13,10 +13,14 @@ export const Product = ({ product }) => {
   }
   return (
     <div className="product">
-      <img className="product-img" src={model} />
+      <img
+        className="product-img"
+        src={product.image !== null ? product.image : model}
+      />
+      {console.log(product.name + ":" + product.image)}
       <p>{product.name}</p>
       <p className="product-price">{numberWithCommas(product.price)}đ</p>
-      <p>Còn lại: {product.remain}</p>
+      <p>{product.remain ? "Còn hàng" : "Hết hàng"}</p>
       <Link to={`/cart/${product.name}`} state={{ qr: product.name }}>
         <img className="product-add" src={cart} />
       </Link>

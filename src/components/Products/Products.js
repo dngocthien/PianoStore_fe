@@ -11,13 +11,7 @@ const Products = () => {
   const [currentProducts, setCurrentProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
   const [searchQuery, setSearchQuery] = useState("");
-  const [brandList, setBrandList] = useState([]);
-  const brands = [
-    { label: "Boston", value: "Boston" },
-    { label: "Essex", value: "Essex" },
-    { label: "Kawai", value: "Kawai" },
-    { label: "Yamaha", value: "Yamaha" },
-  ];
+  const [brands, setBrands] = useState([]);
   const ranges = [
     { label: "Giá thấp đến cao", value: 1 },
     { label: "Giá cao đến thấp", value: 2 },
@@ -42,7 +36,11 @@ const Products = () => {
     fetch(DB_URL + "brands")
       .then((res) => res.json())
       .then((result) => {
-        setBrandList(result);
+        let list = [];
+        result.map((brand) => {
+          list = [...list, { label: brand, value: brand }];
+        });
+        setBrands(list);
       });
   }, []);
 
@@ -103,7 +101,7 @@ const Products = () => {
       <div className="products-select">
         <Select
           options={brands}
-          placeholder="Thuơng hiệu "
+          placeholder="Thuơng hiệu"
           onChange={(e) => changeBrand(e)}
         />
         <Select

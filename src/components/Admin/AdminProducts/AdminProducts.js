@@ -18,7 +18,6 @@ function AdminProducts() {
   const [range, setRange] = useState(1);
   const [showAddProduct, setShowAddProduct] = useState(false);
   const [showEditProduct, setShowEditroduct] = useState(false);
-  const [existingName, setExistingName] = useState("");
   const [name, setName] = useState("");
   const [brand, setBrand] = useState("");
   const [price, setPrice] = useState(0);
@@ -116,7 +115,7 @@ function AdminProducts() {
     setImagePreview(URL.createObjectURL(file));
   };
 
-  async function saveProduct() {
+  async function saveProduct(task) {
     if (name !== "") {
       const formData = new FormData();
       formData.append("name", name);
@@ -124,7 +123,7 @@ function AdminProducts() {
       formData.append("price", price);
       formData.append("remain", remain);
       formData.append("file", image);
-      fetch(DB_URL + "addProduct", {
+      fetch(DB_URL + task, {
         method: "post",
         body: formData,
       }).then(() => {
@@ -133,6 +132,7 @@ function AdminProducts() {
           .then((result) => {
             setResponse(result);
             setShowAddProduct(false);
+            setShowEditroduct(false);
             updatePage(result);
           });
       });
@@ -142,59 +142,12 @@ function AdminProducts() {
   function switchEditProduct(p) {
     setShowEditroduct(true);
     setShowAddProduct(false);
-    setExistingName(p.name);
     setName(p.name);
     setBrand(p.brand);
     setPrice(p.price);
     setRemain(p.remain);
     setImage(p.image);
     setImagePreview(p.image);
-  }
-
-  function updateProduct() {
-    if (name !== "") {
-      const formData = new FormData();
-      formData.append("existing", existingName);
-      formData.append("name", name);
-      formData.append("brand", brand);
-      formData.append("price", price);
-      formData.append("remain", remain);
-      formData.append("file", image);
-      fetch(DB_URL + "updateProduct", {
-        method: "put",
-        body: formData,
-      }).then(() => {
-        fetch(DB_URL + "products")
-          .then((res) => res.json())
-          .then((result) => {
-            setResponse(result);
-            setShowEditroduct(false);
-            updatePage(result);
-          });
-      });
-    }
-  }
-
-  function updateProduct1() {
-    const product = { name, brand, price, remain, image };
-    (fetch(DB_URL + "addProduct", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(product),
-    }),
-    fetch(DB_URL + "delete/" + existingName, {
-      method: "DELETE",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(existingName),
-    })).then(() => {
-      fetch(DB_URL + "products")
-        .then((res) => res.json())
-        .then((result) => {
-          setResponse(result);
-          setShowEditroduct(false);
-          updatePage(result);
-        });
-    });
   }
 
   function removeProducts(name) {
@@ -317,7 +270,7 @@ function AdminProducts() {
                 <button
                   onClick={(event) => {
                     event.preventDefault();
-                    saveProduct();
+                    saveProduct("addProduct");
                   }}
                 >
                   LƯU
@@ -371,7 +324,7 @@ function AdminProducts() {
                 <button
                   onClick={(event) => {
                     event.preventDefault();
-                    updateProduct();
+                    saveProduct("updateProduct");
                   }}
                 >
                   LƯU

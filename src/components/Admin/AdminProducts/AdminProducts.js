@@ -18,6 +18,7 @@ function AdminProducts() {
   const [range, setRange] = useState(1);
   const [showAddProduct, setShowAddProduct] = useState(false);
   const [showEditProduct, setShowEditroduct] = useState(false);
+  const [id, setId] = useState(null);
   const [name, setName] = useState("");
   const [brand, setBrand] = useState("");
   const [price, setPrice] = useState(0);
@@ -115,7 +116,7 @@ function AdminProducts() {
     setImagePreview(URL.createObjectURL(file));
   };
 
-  async function saveProduct(task) {
+  async function saveProduct() {
     if (name !== "") {
       const formData = new FormData();
       formData.append("name", name);
@@ -123,7 +124,32 @@ function AdminProducts() {
       formData.append("price", price);
       formData.append("remain", remain);
       formData.append("file", image);
-      fetch(DB_URL + task, {
+      fetch(DB_URL + "addProduct", {
+        method: "post",
+        body: formData,
+      }).then(() => {
+        fetch(DB_URL + "products")
+          .then((res) => res.json())
+          .then((result) => {
+            setResponse(result);
+            setShowAddProduct(false);
+            setShowEditroduct(false);
+            updatePage(result);
+          });
+      });
+    }
+  }
+
+  async function updateProduct() {
+    if (name !== "") {
+      const formData = new FormData();
+      formData.append("id", id);
+      formData.append("name", name);
+      formData.append("brand", brand);
+      formData.append("price", price);
+      formData.append("remain", remain);
+      formData.append("file", image);
+      fetch(DB_URL + "updateProduct", {
         method: "post",
         body: formData,
       }).then(() => {
@@ -142,6 +168,7 @@ function AdminProducts() {
   function switchEditProduct(p) {
     setShowEditroduct(true);
     setShowAddProduct(false);
+    setId(p.id);
     setName(p.name);
     setBrand(p.brand);
     setPrice(p.price);
@@ -270,7 +297,7 @@ function AdminProducts() {
                 <button
                   onClick={(event) => {
                     event.preventDefault();
-                    saveProduct("addProduct");
+                    saveProduct();
                   }}
                 >
                   LƯU
@@ -281,9 +308,16 @@ function AdminProducts() {
 
           {showEditProduct && (
             <div className="admin-products-add">
-              <h3>{name}</h3>
+              <h3>CẬP NHẬT SẢN PHẨM</h3>
               <div className="admin-products-add-body">
                 <div className="admin-products-add-body-info">
+                  <p>
+                    <input
+                      value={name}
+                      placeholder="Thương hiệu"
+                      onChange={(e) => setName(e.target.value)}
+                    ></input>
+                  </p>
                   <p>
                     <input
                       value={brand}
@@ -324,7 +358,7 @@ function AdminProducts() {
                 <button
                   onClick={(event) => {
                     event.preventDefault();
-                    saveProduct("updateProduct");
+                    updateProduct();
                   }}
                 >
                   LƯU
@@ -378,13 +412,7 @@ function AdminProducts() {
                             />
                           </p>
                         </td>
-                        <td>
-                          {p.name}
-                          <img
-                            className="admin-products-table-img"
-                            src={p.image !== null ? p.image : icon_model}
-                          />
-                        </td>
+                        <td>{p.name}</td>
                         <td>{p.brand}</td>
                         <td>{numberWithCommas(p.price)}</td>
                         <td>{p.remain ? "Còn hàng" : "Hết hàng"}</td>

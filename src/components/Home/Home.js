@@ -10,6 +10,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./Home.css";
 import { DB_URL } from "../../constants";
+import Blog from "../Blog/Blog";
 
 const Home = () => {
   var settings = {
@@ -90,22 +91,8 @@ const Home = () => {
             })}
           </Slider>
         </div>
-
-        <div className="home-container-blog">
-          <h1>
-            <Link className="text-link" to={"/blog"}>
-              THÔNG BÁO
-            </Link>
-          </h1>
-          <p className="no-blog">
-            Bạn có thể vào trang admin tại
-            <b>
-              <Link to={"/admin"}> link </Link>
-            </b>
-            này
-          </p>
-        </div>
       </div>
+      <Blog />
     </div>
   );
 };

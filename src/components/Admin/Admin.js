@@ -6,12 +6,12 @@ function Admin() {
     <div className="admin">
       <div className="admin-page">
         <Link className="text-link" to={"/admin/products"}>
-          <h3>Products</h3>
+          <h3>Sản phẩm</h3>
         </Link>
       </div>
       <div className="admin-page">
         <Link className="text-link" to={"/admin/orders"}>
-          <h3>Orders</h3>
+          <h3>Đơn hàng</h3>
         </Link>
       </div>
       <div className="blank"></div>

@@ -24,7 +24,7 @@ const Products = () => {
   }
 
   useEffect(() => {
-    fetch(DB_URL + "products/" + search)
+    fetch(DB_URL + "products/" + searchQuery)
       .then((res) => res.json())
       .then((result) => {
         setResponse(result);

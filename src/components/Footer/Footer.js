@@ -6,7 +6,7 @@ function Footer() {
       <div className="footer-container">
         <div className="footer-container-content">
           <h1>LIÊN HỆ</h1>
-          <p>Hotline: 0123456789</p>
+          <p>Hotline: 0347145232</p>
           <p>Email: ngocthien.dnt@gmail.com</p>
           <p>Address: 000, district 1, Ho Chi Minh city</p>
         </div>

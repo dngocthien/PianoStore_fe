@@ -1,6 +1,6 @@
 import "./Contact.css";
 
-const Contact = () => {
+function Contact() {
   return (
     <div className="contact">
       <h1>CỬA HÀNG PIANO THIỆN ĐINH STUDIO</h1>
@@ -11,6 +11,6 @@ const Contact = () => {
       <p>Email: ngocthien.dnt@gmail.com</p>
     </div>
   );
-};
+}
 
 export default Contact;

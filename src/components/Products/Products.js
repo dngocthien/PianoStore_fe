@@ -146,8 +146,8 @@ const Products = () => {
             </div>
           </div>
         ) : (
-          <div className="products-null">
-            <img className="loading" src={loading} alt="loading" />
+          <div className="loading">
+            <img src={loading} alt="loading" />
           </div>
         )}
       </div>

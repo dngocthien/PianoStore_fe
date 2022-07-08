@@ -99,7 +99,9 @@ const Home = () => {
               })}
             </Slider>
           ) : (
-            <img className="loading" src={loading} alt="loading" />
+            <div className="loading">
+              <img src={loading} alt="loading" />
+            </div>
           )}
 
           <br />
@@ -114,7 +116,9 @@ const Home = () => {
               })}
             </Slider>
           ) : (
-            <img className="loading" src={loading} alt="loading" />
+            <div className="loading">
+              <img src={loading} alt="loading" />
+            </div>
           )}
         </div>
       </div>

@@ -84,15 +84,15 @@ const Navbar = () => {
         <div className="navbar-container">
           <div className="navbar-container-a">
             <p>
+              <Link className="text-link" to="/">
+                TRANG CHỦ
+              </Link>
+            </p>
+            <p>
               <Link className="text-link" to="/products">
                 PIANO
               </Link>
             </p>
-            {/* <p>
-              <Link className="text-link" to="/blog">
-                THÔNG BÁO
-              </Link>
-            </p> */}
             <p>
               <Link className="text-link" to="/contact">
                 LIÊN HỆ

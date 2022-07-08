@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Select from "react-select";
 import { useParams } from "react-router-dom";
 import { Product } from "../Product/Product";
+import loading from "../../assets/loading.gif";
 import "./Products.css";
 import { DB_URL } from "../../constants";
 
@@ -146,7 +147,7 @@ const Products = () => {
           </div>
         ) : (
           <div className="products-null">
-            <p>Đang tải...</p>
+            <img className="loading" src={loading} alt="loading" />
           </div>
         )}
       </div>

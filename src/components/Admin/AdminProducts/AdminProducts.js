@@ -4,10 +4,9 @@ import icon_edit from "../../../assets/edit.png";
 import icon_search from "../../../assets/search.png";
 import icon_sort from "../../../assets/sort.png";
 import icon_preview from "../../../assets/nopreview.png";
-import icon_model from "../../../assets/model.jpg";
+import loading from "../../../assets/loading.gif";
 import "./AdminProducts.css";
 import { DB_URL } from "../../../constants";
-import axios from "axios";
 
 function AdminProducts() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -449,7 +448,7 @@ function AdminProducts() {
           </div>
         ) : (
           <div className="products-null">
-            <p>Đang tải...</p>
+            <img className="loading" src={loading} alt="loading" />
           </div>
         )}
       </div>

@@ -6,9 +6,9 @@ function Footer() {
       <div className="footer-container">
         <div className="footer-container-content">
           <h1>LIÊN HỆ</h1>
+          <p>Địa chỉ: quận 10, tp. Hồ Chí Minh</p>
           <p>Hotline: 0347145232</p>
           <p>Email: ngocthien.dnt@gmail.com</p>
-          <p>Address: Tô Hiến Thành, quận 10, Ho Chi Minh city</p>
         </div>
 
         <div className="footer-container-content">

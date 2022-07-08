@@ -5,6 +5,7 @@ import icon_details from "../../../assets/details.png";
 import icon_search from "../../../assets/search.png";
 import icon_sort from "../../../assets/sort.png";
 import icon_delete from "../../../assets/delete.png";
+import loading from "../../../assets/loading.gif";
 import "./AdminOrders.css";
 import { DB_URL } from "../../../constants";
 
@@ -262,7 +263,7 @@ function AdminOrders() {
           </div>
         ) : (
           <div className="products-null">
-            <p>Đang tải...</p>
+            <img className="loading" src={loading} alt="loading" />
           </div>
         )}
       </div>

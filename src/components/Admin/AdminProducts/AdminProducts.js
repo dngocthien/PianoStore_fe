@@ -449,7 +449,7 @@ function AdminProducts() {
           </div>
         ) : (
           <div className="products-null">
-            <p>Không tồn tại sản phẩm.</p>
+            <p>Đang tải...</p>
           </div>
         )}
       </div>

@@ -88,11 +88,11 @@ const Navbar = () => {
                 PIANO
               </Link>
             </p>
-            <p>
+            {/* <p>
               <Link className="text-link" to="/blog">
                 THÔNG BÁO
               </Link>
-            </p>
+            </p> */}
             <p>
               <Link className="text-link" to="/contact">
                 LIÊN HỆ

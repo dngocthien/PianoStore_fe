@@ -55,11 +55,18 @@ const Home = () => {
     ],
   };
   const [products, setProducts] = useState([]);
+  const [cheapProducts, setCheapProducts] = useState([]);
   useEffect(() => {
     fetch(DB_URL + "products")
       .then((res) => res.json())
       .then((result) => {
         setProducts(result);
+      });
+
+    fetch(DB_URL + "products/cheap")
+      .then((res) => res.json())
+      .then((result) => {
+        setCheapProducts(result);
       });
   }, []);
   return (
@@ -86,13 +93,23 @@ const Home = () => {
             </Link>
           </h1>
           <Slider {...settings2}>
-            {products.slice(0, 6).map((p, index) => {
+            {products.slice(0, 8).map((p, index) => {
+              return <Product key={index} product={p} />;
+            })}
+          </Slider>
+
+          <br />
+          <br />
+          <br />
+
+          <h1>PIANO GIÁ RẺ</h1>
+          <Slider {...settings2}>
+            {cheapProducts.map((p, index) => {
               return <Product key={index} product={p} />;
             })}
           </Slider>
         </div>
       </div>
-      <Blog />
     </div>
   );
 };

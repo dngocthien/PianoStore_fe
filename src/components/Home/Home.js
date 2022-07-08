@@ -92,22 +92,30 @@ const Home = () => {
               PIANO
             </Link>
           </h1>
-          <Slider {...settings2}>
-            {products.slice(0, 8).map((p, index) => {
-              return <Product key={index} product={p} />;
-            })}
-          </Slider>
+          {products.length > 0 ? (
+            <Slider {...settings2}>
+              {products.slice(0, 8).map((p, index) => {
+                return <Product key={index} product={p} />;
+              })}
+            </Slider>
+          ) : (
+            <p>Đang tải...</p>
+          )}
 
           <br />
           <br />
           <br />
 
           <h1>PIANO GIÁ RẺ</h1>
-          <Slider {...settings2}>
-            {cheapProducts.map((p, index) => {
-              return <Product key={index} product={p} />;
-            })}
-          </Slider>
+          {cheapProducts.length > 0 ? (
+            <Slider {...settings2}>
+              {cheapProducts.slice(0, 8).map((p, index) => {
+                return <Product key={index} product={p} />;
+              })}
+            </Slider>
+          ) : (
+            <p>Đang tải...</p>
+          )}
         </div>
       </div>
     </div>

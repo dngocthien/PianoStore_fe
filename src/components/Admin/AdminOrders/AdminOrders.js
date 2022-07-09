@@ -18,8 +18,10 @@ function AdminOrders() {
   const [range, setRange] = useState(1);
   const statuses = [
     { label: "Chờ xử lý", value: 0 },
-    { label: "Hoàn thành", value: 1 },
-    { label: "Đã huỷ", value: 2 },
+    { label: "Đã huỷ", value: 1 },
+    { label: "Đã nhận tiền", value: 2 },
+    { label: "Nhận tiền khi giao hàng", value: 3 },
+    { label: "Đã giao", value: 4 },
   ];
 
   useEffect(() => {

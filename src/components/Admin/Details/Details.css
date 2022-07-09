@@ -1,3 +1,37 @@
+@import "../../../vars.css";
+
 .details-info p {
   line-height: 36px;
+  text-align: left;
+}
+
+.details{
+  background-color: var(--white);
+  border-radius: 10px;
+  padding-bottom: 2rem;
+}
+
+#divToPrint{
+  display: none;
+  padding: 1rem 3rem;
+  align-items: center;
+  justify-content: center;
+  width: auto;
+  margin: auto;
+}
+#divToPrint h3{
+  margin: 1rem 0;
+}
+#divToPrint table {
+  border: 1px solid var(--light);
+  border-collapse: collapse;
+}
+#divToPrint table th {
+  background-color: var(--light);
+  line-height: 42px;
+}
+#divToPrint table td {
+  line-height: 36px;
+  padding: 0 1rem;
+  text-align: right;
 }

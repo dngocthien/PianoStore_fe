@@ -173,6 +173,38 @@
   height: 100%;
 }
 
+/* View */
+/* View */
+/* View */
+.view-header{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.view-center{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 1rem;
+}
+.view-bottom{
+  display: flex;
+  justify-content: flex-end;
+  margin: 2rem 6rem 2rem 0;
+}
+
+/* Button */
+/* Button */
+/* Button */
+.btn-border{
+  border: 1px solid var(--black);
+  border-radius: 5px;
+  padding: .5rem 2rem;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
 .loading{
   text-align: center;
 }

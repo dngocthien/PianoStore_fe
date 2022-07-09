@@ -11,26 +11,31 @@
   padding-bottom: 2rem;
 }
 
-#divToPrint{
-  display: none;
+.hiddenDiv{
+  position: absolute; 
+  opacity: 0.0;
+  top: 0;
+}
+
+#exportDiv{
   padding: 1rem 3rem;
   align-items: center;
   justify-content: center;
   width: auto;
   margin: auto;
 }
-#divToPrint h3{
+#exportDiv h3{
   margin: 1rem 0;
 }
-#divToPrint table {
+#exportDiv table {
   border: 1px solid var(--light);
   border-collapse: collapse;
 }
-#divToPrint table th {
+#exportDiv table th {
   background-color: var(--light);
   line-height: 42px;
 }
-#divToPrint table td {
+#exportDiv table td {
   line-height: 36px;
   padding: 0 1rem;
   text-align: right;

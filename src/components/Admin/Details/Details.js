@@ -24,12 +24,15 @@ function Details() {
   }, []);
 
   function printDocument() {
-    const input = document.getElementById("divToPrint");
-    html2canvas(input).then((canvas) => {
+    const input = document.getElementById("exportDiv");
+
+    html2canvas(input, {
+      onrendered: function (canvas) {
+        document.body.appendChild(canvas);
+      },
+    }).then((canvas) => {
       const imgData = canvas.toDataURL("image/png");
       const pdf = new jsPDF("p", "pt", "a4");
-      let width = pdf.internal.pageSize.getWidth();
-      let height = pdf.internal.pageSize.getHeight();
       pdf.addImage(imgData, "JPEG", 0, 0);
       pdf.save("download.pdf");
     });
@@ -67,29 +70,40 @@ function Details() {
   }
   return (
     <div className="admin">
-      <h1>CHI TIẾT</h1>
-      <button onClick={() => printDocument()}>Export</button>
+      <div className="view-header">
+        <h1>CHI TIẾT</h1>
+        <button className="btn-border" onClick={() => printDocument()}>
+          Export
+        </button>
+      </div>
+
       <div className="payment-body details">
         {info != null && (
           <div className="payment-body-section details-info">
             <h3>THÔNG TIN THANH TOÁN</h3>
             <p>
-              Tên khách hàng: <b>{info.name}</b>
+              <b>Tên khách hàng: </b>
+              {info.name}
             </p>
             <p>
-              Địa chỉ: <b>{info.address}</b>
+              <b>Địa chỉ: </b>
+              {info.address}
             </p>
             <p>
-              Điện thoại: <b>{info.phone}</b>
+              <b>Điện thoại: </b>
+              {info.phone}
             </p>
             <p>
-              Lời nhắn: <b>{info.message}</b>
+              <b>Lời nhắn: </b>
+              {info.message}
             </p>
             <p>
-              Ngày đặt hàng: <b>{info.date}</b>
+              <b>Ngày đặt hàng: </b>
+              {info.date}
             </p>
             <p>
-              Tình trạng: <b>{showStatus(info.status)}</b>
+              <b>Tình trạng: </b>
+              {showStatus(info.status)}
             </p>
           </div>
         )}
@@ -135,70 +149,77 @@ function Details() {
         )}
       </div>
 
-      <div id="divToPrint">
-        {info != null && (
-          <div className="details-info">
-            <h3>THÔNG TIN THANH TOÁN</h3>
-            <p>
-              Tên khách hàng: <b>{info.name}</b>
-            </p>
-            <p>
-              Địa chỉ: <b>{info.address}</b>
-            </p>
-            <p>
-              Điện thoại: <b>{info.phone}</b>
-            </p>
-            <p>
-              Lời nhắn: <b>{info.message}</b>
-            </p>
-            <p>
-              Ngày đặt hàng: <b>{info.date}</b>
-            </p>
-            <p>
-              Tình trạng: <b>{showStatus(info.status)}</b>
-            </p>
-          </div>
-        )}
-
-        {cart.length > 0 && (
-          <div className="">
-            <h3>ĐƠN HÀNG</h3>
-            <table>
-              <thead>
-                <tr>
-                  <th>SẢN PHẨM</th>
-                  <th>TẠM TÍNH</th>
-                </tr>
-              </thead>
-              <tbody>
-                {cart.map((p, i) => {
-                  return (
-                    <tr key={i}>
-                      <td>
-                        {p.productName}
-                        <b> x {p.quantity}</b>
-                      </td>
-                      <td>{numberWithCommas(p.unitPrice * p.quantity)}đ</td>
-                    </tr>
-                  );
-                })}
-                <tr className="table-break">
-                  <td colSpan="100%"></td>
-                </tr>
-              </tbody>
-              <tfoot>
-                <tr>
-                  <td>
-                    <b>Tổng cộng:</b>
-                  </td>
-                  <td>
-                    <b>{numberWithCommas(sum())}đ</b>
-                  </td>
-                </tr>
-              </tfoot>
-            </table>
-          </div>
-        )}
+      <div className="hiddenDiv">
+        <div id="exportDiv">
+          {info != null && (
+            <div className="details-info">
+              <h3>THÔNG TIN THANH TOÁN</h3>
+              <p>
+                <b>Tên khách hàng: </b>
+                {info.name}
+              </p>
+              <p>
+                <b>Địa chỉ: </b>
+                {info.address}
+              </p>
+              <p>
+                <b>Điện thoại: </b>
+                {info.phone}
+              </p>
+              <p>
+                <b>Lời nhắn: </b>
+                {info.message}
+              </p>
+              <p>
+                <b>Ngày đặt hàng: </b>
+                {info.date}
+              </p>
+              <p>
+                <b>Tình trạng: </b>
+                {showStatus(info.status)}
+              </p>
+            </div>
+          )}
+          {cart.length > 0 && (
+            <div className="">
+              <h3>ĐƠN HÀNG</h3>
+              <table>
+                <thead>
+                  <tr>
+                    <th>SẢN PHẨM</th>
+                    <th>TẠM TÍNH</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {cart.map((p, i) => {
+                    return (
+                      <tr key={i}>
+                        <td>
+                          {p.productName}
+                          <b> x {p.quantity}</b>
+                        </td>
+                        <td>{numberWithCommas(p.unitPrice * p.quantity)}đ</td>
+                      </tr>
+                    );
+                  })}
+                  <tr className="table-break">
+                    <td colSpan="100%"></td>
+                  </tr>
+                </tbody>
+                <tfoot>
+                  <tr>
+                    <td>
+                      <b>Tổng cộng:</b>
+                    </td>
+                    <td>
+                      <b>{numberWithCommas(sum())}đ</b>
+                    </td>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

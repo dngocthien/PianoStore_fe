@@ -20,7 +20,7 @@ function AdminOrders() {
     { label: "Chờ xử lý", value: 0 },
     { label: "Đã huỷ", value: 1 },
     { label: "Đã nhận tiền", value: 2 },
-    { label: "Nhận tiền khi giao hàng", value: 3 },
+    { label: "Nhận tiền khi giao", value: 3 },
     { label: "Đã giao", value: 4 },
   ];
 
@@ -66,9 +66,15 @@ function AdminOrders() {
       case 0:
         return "Chờ xử lý";
       case 1:
-        return "Hoàn thành";
-      case 2:
         return "Đã huỷ";
+      case 2:
+        return "Đã nhận tiền";
+      case 3:
+        return "Nhận tiền khi giao";
+      case 4:
+        return "Đã giao";
+      default:
+        return "Chờ xử lý";
     }
   }
 

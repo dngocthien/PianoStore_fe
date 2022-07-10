@@ -61,7 +61,7 @@ function Details() {
       case 2:
         return "Đã nhận tiền";
       case 3:
-        return "Nhận tiền khi giao";
+        return "Nhận tiền khi giao hàng";
       case 4:
         return "Đã giao";
       default:
@@ -73,7 +73,7 @@ function Details() {
       <div className="view-header">
         <h1>CHI TIẾT</h1>
         <button className="btn-border" onClick={() => printDocument()}>
-          Export
+          Xuất đơn hàng
         </button>
       </div>
 

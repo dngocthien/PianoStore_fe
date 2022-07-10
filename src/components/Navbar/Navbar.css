@@ -199,7 +199,7 @@
 .btn-border{
   border: 1px solid var(--black);
   border-radius: 5px;
-  padding: .5rem 2rem;
+  padding: .5rem 1rem;
   align-items: center;
   justify-content: center;
   cursor: pointer;

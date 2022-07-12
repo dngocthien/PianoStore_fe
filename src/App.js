@@ -39,7 +39,7 @@ const App = () => {
           <Route path="orders" element={<AdminOrders />} />
           <Route path="orders/details/:id" element={<Details />} />
         </Route>
-        <Route path="/auth" element={<Auth />}></Route>
+        <Route path="/login" element={<Auth />}></Route>
       </Routes>
     </BrowserRouter>
   );

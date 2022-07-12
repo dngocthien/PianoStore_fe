@@ -123,7 +123,7 @@ function AdminProducts() {
       formData.append("price", price);
       formData.append("remain", remain);
       formData.append("file", image);
-      fetch(DB_URL + "addProduct", {
+      fetch(DB_URL + "products", {
         method: "post",
         body: formData,
       }).then(() => {
@@ -148,8 +148,8 @@ function AdminProducts() {
       formData.append("price", price);
       formData.append("remain", remain);
       formData.append("file", image);
-      fetch(DB_URL + "updateProduct", {
-        method: "post",
+      fetch(DB_URL + "products", {
+        method: "put",
         body: formData,
       }).then(() => {
         fetch(DB_URL + "products")
@@ -177,7 +177,7 @@ function AdminProducts() {
   }
 
   function removeProducts(name) {
-    fetch(DB_URL + "delete/" + name, {
+    fetch(DB_URL + "products/" + name, {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(name),

@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Product } from "../Product/Product";
-import Slider from "react-slick";
 
 import slider1 from "../../assets/slider1.png";
 import slider2 from "../../assets/slider2.png";
 import slider3 from "../../assets/slider3.png";
 import loading from "../../assets/loading.gif";
+import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./Home.css";

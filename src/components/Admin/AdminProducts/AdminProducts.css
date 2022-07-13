@@ -5,6 +5,7 @@
   padding: 1rem;
   background-color: var(--white);
   border-radius: 5px;
+  box-shadow: 2px 3px 4px var(--grey);
 }
 
 .admin-products-tools {

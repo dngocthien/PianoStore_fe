@@ -1,6 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import { Outlet, Link, NavLink } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import useBreadcrumbs from "use-react-router-breadcrumbs";
 import logo from "../../assets/logo.png";
 import icon_avatar from "../../assets/avatar.png";
@@ -9,6 +10,8 @@ import icon_menu from "../../assets/menu.png";
 import "./Navbar.css";
 
 function NavbarAdmin() {
+  const navigate = useNavigate();
+
   const routes = [
     { path: "*", breadcrumb: null },
     { path: "/admin", breadcrumb: "Admin" },
@@ -18,6 +21,10 @@ function NavbarAdmin() {
   const breadcrumbs = useBreadcrumbs(routes);
   const [showMenu, setShowMenu] = useState(false);
 
+  function logout() {
+    localStorage.removeItem("access_token");
+    navigate("/login");
+  }
   return (
     <div className="admin-nav">
       <div className="admin-navbar">
@@ -29,12 +36,17 @@ function NavbarAdmin() {
 
         <div className="navbar-container">
           <div className="navbar-container-a">
-            <Link to={"/admin"}>
+            {/* <Link to={"/admin"}>
               <img src={icon_notification} alt="cart" />
-            </Link>
-            <Link className="text-link" to="/admin">
-              <img className="avatar" src={icon_avatar} alt="avatar" />
-            </Link>
+            </Link> */}
+            <div>
+              <img
+                className="avatar"
+                src={icon_avatar}
+                alt="avatar"
+                onClick={() => logout()}
+              />
+            </div>
           </div>
 
           <div className="navbar-container-menu">
@@ -55,7 +67,7 @@ function NavbarAdmin() {
                 to={"/admin/products"}
                 onClick={() => setShowMenu(false)}
               >
-                <h3>Products</h3>
+                <h3>SẢN PHẨM</h3>
               </Link>
             </div>
             <div>
@@ -64,7 +76,7 @@ function NavbarAdmin() {
                 to={"/admin/orders"}
                 onClick={() => setShowMenu(false)}
               >
-                <h3>Orders</h3>
+                <h3>ĐƠN HÀNG</h3>
               </Link>
             </div>
           </div>

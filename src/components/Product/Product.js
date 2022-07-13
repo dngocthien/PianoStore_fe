@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React from "react";
 import model from "../../assets/model.jpg";
 import cart from "../../assets/cart.png";
 import { useNavigate } from "react-router-dom";

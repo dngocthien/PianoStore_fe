@@ -1,5 +1,5 @@
 import "./App.css";
-import React, { Component } from "react";
+import React, { FC } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./components/Home/Home";
 import Products from "./components/Products/Products";
@@ -30,7 +30,6 @@ const App = () => {
           <Route path="cart/payment" element={<Payment />} />
           <Route path="thankyou" element={<Thankyou />} />
           <Route path="*" element={<NoPage />} />
-          {/* <Route path="auth" element={<Auth />} /> */}
         </Route>
         <Route path="/admin" element={<NavbarAdmin />}>
           <Route index element={<Admin />} />

@@ -2,22 +2,26 @@ import React, { useState } from "react";
 import "./Auth.css";
 import logo from "../../assets/logo.png";
 import { DB_URL } from "../../constants";
+import { useNavigate } from "react-router";
 
 const Auth = () => {
+  const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
   function login() {
-    const formData = new FormData();
+    const formData = new URLSearchParams();
     formData.append("username", username);
     formData.append("password", password);
     fetch(DB_URL + "login", {
       method: "post",
       headers: {
-        "Content-Type": "multipart/form-data",
+        "Content-Type": "application/x-www-form-urlencoded",
         "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "DELETE, POST, GET, OPTIONS",
       },
       body: formData,
+      // body: JSON.stringify({ username: username, password: password }),
     })
       .then((res) => {
         if (res.ok) {
@@ -26,8 +30,8 @@ const Auth = () => {
         throw Error(res.status);
       })
       .then((result) => {
-        localStorage.setItem("accessToken", result.accessToken);
-        alert("Logged in");
+        localStorage.setItem("access_token", result.access_token);
+        navigate("/admin");
       })
       .catch((error) => {
         alert("Login fail!" + error);
@@ -50,6 +54,7 @@ const Auth = () => {
         ></input>
         <input
           value={password}
+          type="password"
           placeholder="Password"
           onChange={(e) => setPassword(e.target.value)}
         ></input>

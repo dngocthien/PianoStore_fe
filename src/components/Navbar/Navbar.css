@@ -119,17 +119,21 @@
   font-weight: 700;
 }
 
+.admin-nav{
+  background-color: var(--light);
+}
 .admin-navbar {
   background-color: var(--white);
-  margin: 0;
+  margin-bottom: 3px;
   padding: 0.5rem 3rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  box-shadow: 2px 3px 4px var(--grey);
 }
 
 .admin-navbar-container {
-  background-color: var(--light);
+  /* background-color: var(--light); */
   display: flex;
   flex-direction: row;
   margin: 0px;
@@ -242,6 +246,8 @@
 
   .admin-navbar-container-menu {
     display: block;
+    top: 5rem;
+    right: 0;
   }
 
   .admin-navbar-container-left {

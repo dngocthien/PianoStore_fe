@@ -36,14 +36,14 @@
     width: 15rem;
 }
 .signin img{
-    height: 5rem;
+    height: 4rem;
     margin: 2rem 0 1rem 0;
 }
 
 .btn-signin{
     background-color: var(--black);
     color: var(--white);
-    border: none;
+    border: 1px solid var(--white);
     border-radius: 15px;
     padding: 0.5rem 2rem;
     margin-top: 2rem;

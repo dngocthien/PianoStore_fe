@@ -34,7 +34,7 @@ const Products = () => {
   }, [searchQuery]);
 
   useEffect(() => {
-    fetch(DB_URL + "brands")
+    fetch(DB_URL + "products/brands")
       .then((res) => res.json())
       .then((result) => {
         let list = [];

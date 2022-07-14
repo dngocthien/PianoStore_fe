@@ -100,18 +100,21 @@ const Products = () => {
       <h1>PIANO</h1>
 
       <div className="products-select">
-        <Select
-          options={brands}
-          placeholder="Thuơng hiệu"
-          onChange={(e) => changeBrand(e)}
-        />
-        <Select
-          options={ranges}
-          placeholder="Sắp xếp "
-          onChange={(e) => changeRange(e)}
-        />
+        <div className="products-select-child">
+          <Select
+            options={brands}
+            placeholder="Thuơng hiệu"
+            onChange={(e) => changeBrand(e)}
+          />
+        </div>
+        <div className="products-select-child">
+          <Select
+            options={ranges}
+            placeholder="Sắp xếp "
+            onChange={(e) => changeRange(e)}
+          />
+        </div>
       </div>
-
       <div>
         {products.length > 0 ? (
           <div>

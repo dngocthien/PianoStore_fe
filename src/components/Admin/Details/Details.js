@@ -72,7 +72,7 @@ function Details() {
     <div className="admin">
       <div className="view-header">
         <h1>CHI TIẾT</h1>
-        <button className="btn-border" onClick={() => printDocument()}>
+        <button className="btn-export" onClick={() => printDocument()}>
           Xuất đơn hàng
         </button>
       </div>

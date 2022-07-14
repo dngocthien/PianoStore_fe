@@ -85,13 +85,14 @@ function Payment() {
       const current = new Date();
       const date = current.toISOString().split("T")[0];
       const info = { name, address, phone, message, bank, date, status: 0 };
-      fetch(DB_URL + "addCart", {
+      fetch(DB_URL + "carts", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(info),
       })
         .then((response) => response.json())
-        .then((res) => postOrders(res.id));
+        .then((res) => postOrders(res.id))
+        .then(() => localStorage.removeItem("cart"));
     }
   }
 

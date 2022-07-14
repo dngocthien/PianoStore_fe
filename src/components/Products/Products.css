@@ -9,6 +9,9 @@
   flex-direction: row;
   flex-wrap: wrap;
 }
+.products-select-child{
+  margin-right: 1rem;
+}
 
 .products-show {
   margin-top: 3rem;

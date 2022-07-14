@@ -40,7 +40,7 @@ function AdminOrders() {
     })
       .then((res) => res.json())
       .then((result) => {
-        let rev = [...result].reverse();
+        let rev = [...result];
         setResponse(rev);
         updatePage(rev);
       });

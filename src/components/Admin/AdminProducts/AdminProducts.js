@@ -12,22 +12,6 @@ import { DB_URL } from "../../../constants";
 
 function AdminProducts() {
   const navigate = useNavigate();
-
-  useEffect(() => {
-    if (localStorage.getItem("access_token") == null) {
-      navigate("/login");
-    }
-    fetch(DB_URL + "brands")
-      .then((res) => res.json())
-      .then((result) => {
-        let list = [];
-        result.map((brand) => {
-          list = [...list, { label: brand.name, value: brand.id }];
-        });
-        setBrands(list);
-      });
-  });
-
   const [searchQuery, setSearchQuery] = useState("");
   const [brands, setBrands] = useState([]);
   const [response, setResponse] = useState([]);
@@ -42,15 +26,29 @@ function AdminProducts() {
   const [brand, setBrand] = useState("");
   const [price, setPrice] = useState(0);
   const [remain, setRemain] = useState(true);
+  const [discount, setDiscount] = useState(0);
   const [image, setImage] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
 
   useEffect(() => {
+    if (localStorage.getItem("access_token") == null) {
+      navigate("/login");
+    }
+    fetch(DB_URL + "brands")
+      .then((res) => res.json())
+      .then((result) => {
+        let list = [];
+        result.map((brand) => {
+          list = [...list, { label: brand.name, value: brand.id }];
+        });
+        setBrands(list);
+      });
     fetch(DB_URL + "products/" + searchQuery)
       .then((res) => res.json())
       .then((result) => {
-        setResponse(result);
-        updatePage(result);
+        let rev = [...result];
+        setResponse(rev);
+        updatePage(rev);
       });
   }, [searchQuery]);
 
@@ -142,6 +140,7 @@ function AdminProducts() {
       formData.append("brand", brand);
       formData.append("price", price);
       formData.append("remain", remain);
+      formData.append("discount", discount);
       formData.append("file", image);
       fetch(DB_URL + "products", {
         method: "post",
@@ -167,6 +166,7 @@ function AdminProducts() {
       formData.append("brand", brand);
       formData.append("price", price);
       formData.append("remain", remain);
+      formData.append("discount", discount);
       formData.append("file", image);
       fetch(DB_URL + "products", {
         method: "put",
@@ -192,6 +192,7 @@ function AdminProducts() {
     setBrand(p.brand);
     setPrice(p.price);
     setRemain(p.remain);
+    setDiscount(p.discount);
     setImage(p.image);
     setImagePreview(p.image);
   }
@@ -269,27 +270,29 @@ function AdminProducts() {
                 <div>
                   <p>
                     <input
-                      id="add_name"
                       placeholder="Tên sản phẩm"
                       onChange={(e) => setName(e.target.value)}
                     ></input>
                   </p>
                   <p>
                     <input
-                      id="add_price"
                       placeholder="Giá"
                       onChange={(e) => setPrice(e.target.value)}
                     ></input>
                   </p>
+                  <p>
+                    <input
+                      placeholder="Giảm giá (%)"
+                      onChange={(e) => setDiscount(e.target.value)}
+                    ></input>
+                  </p>
                   <input
                     accept="image/*"
-                    id="add_image"
                     type="file"
                     onChange={(e) => handleUploadClick(e)}
                   />
                   <div className="admin-products-add-body-row">
                     <Select
-                      id="add_brand"
                       options={brands}
                       placeholder="Thuơng hiệu"
                       onChange={(e) => setBrand(e.value)}
@@ -330,19 +333,12 @@ function AdminProducts() {
             <div className="admin-products-add">
               <h3>CẬP NHẬT SẢN PHẨM</h3>
               <div className="admin-products-add-body">
-                <div className="admin-products-add-body-info">
+                <div>
                   <p>
                     <input
                       value={name}
                       placeholder="Thương hiệu"
                       onChange={(e) => setName(e.target.value)}
-                    ></input>
-                  </p>
-                  <p>
-                    <input
-                      value={brand}
-                      placeholder="Thương hiệu"
-                      onChange={(e) => setBrand(e.target.value)}
                     ></input>
                   </p>
                   <p>
@@ -353,9 +349,11 @@ function AdminProducts() {
                     ></input>
                   </p>
                   <p>
-                    <button onClick={() => changeRemainStatus()}>
-                      {remain ? "Còn hàng" : "Hết hàng"}
-                    </button>
+                    <input
+                      value={discount}
+                      placeholder="Giảm giá (%)"
+                      onChange={(e) => setPrice(e.target.value)}
+                    ></input>
                   </p>
                   <input
                     accept="image/*"
@@ -363,6 +361,18 @@ function AdminProducts() {
                     type="file"
                     onChange={(e) => handleUploadClick(e)}
                   />
+                  <div className="admin-products-add-body-row">
+                    <Select
+                      options={brands}
+                      placeholder={brand}
+                      onChange={(e) => setBrand(e.value)}
+                    />
+                  </div>
+                  <p>
+                    <button onClick={() => changeRemainStatus()}>
+                      {remain ? "Còn hàng" : "Hết hàng"}
+                    </button>
+                  </p>
                 </div>
 
                 <div className="admin-products-add-body-img">

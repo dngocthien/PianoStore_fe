@@ -197,18 +197,6 @@
   margin: 2rem 6rem 2rem 0;
 }
 
-/* Button */
-/* Button */
-/* Button */
-.btn-border{
-  border: 1px solid var(--black);
-  border-radius: 5px;
-  padding: .5rem 1rem;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-}
-
 .loading{
   text-align: center;
 }

@@ -17,6 +17,16 @@
   top: 0;
 }
 
+.btn-border{
+  border: 1px solid var(--black);
+  border-radius: 5px;
+  margin-bottom: 3rem;
+  padding: .5rem 1rem;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
 #exportDiv{
   padding: 1rem 2rem;
   align-items: center;

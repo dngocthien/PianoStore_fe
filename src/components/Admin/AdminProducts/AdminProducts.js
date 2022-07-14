@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import Select from "react-select";
 import icon_delete from "../../../assets/delete.png";
 import icon_edit from "../../../assets/edit.png";
 import icon_search from "../../../assets/search.png";
@@ -16,9 +17,19 @@ function AdminProducts() {
     if (localStorage.getItem("access_token") == null) {
       navigate("/login");
     }
+    fetch(DB_URL + "brands")
+      .then((res) => res.json())
+      .then((result) => {
+        let list = [];
+        result.map((brand) => {
+          list = [...list, { label: brand.name, value: brand.id }];
+        });
+        setBrands(list);
+      });
   });
 
   const [searchQuery, setSearchQuery] = useState("");
+  const [brands, setBrands] = useState([]);
   const [response, setResponse] = useState([]);
   const [products, setProducts] = useState([]);
   const [currentProducts, setCurrentProducts] = useState([]);
@@ -255,7 +266,7 @@ function AdminProducts() {
             <div className="admin-products-add">
               <h3>THÊM SẢN PHẨM</h3>
               <div className="admin-products-add-body">
-                <div className="admin-products-add-body-info">
+                <div>
                   <p>
                     <input
                       id="add_name"
@@ -265,22 +276,10 @@ function AdminProducts() {
                   </p>
                   <p>
                     <input
-                      id="add_brand"
-                      placeholder="Thương hiệu"
-                      onChange={(e) => setBrand(e.target.value)}
-                    ></input>
-                  </p>
-                  <p>
-                    <input
                       id="add_price"
                       placeholder="Giá"
                       onChange={(e) => setPrice(e.target.value)}
                     ></input>
-                  </p>
-                  <p>
-                    <button onClick={() => changeRemainStatus()}>
-                      {remain ? "Còn hàng" : "Hết hàng"}
-                    </button>
                   </p>
                   <input
                     accept="image/*"
@@ -288,6 +287,19 @@ function AdminProducts() {
                     type="file"
                     onChange={(e) => handleUploadClick(e)}
                   />
+                  <div className="admin-products-add-body-row">
+                    <Select
+                      id="add_brand"
+                      options={brands}
+                      placeholder="Thuơng hiệu"
+                      onChange={(e) => setBrand(e.value)}
+                    />
+                  </div>
+                  <p>
+                    <button onClick={() => changeRemainStatus()}>
+                      {remain ? "Còn hàng" : "Hết hàng"}
+                    </button>
+                  </p>
                 </div>
 
                 <div className="admin-products-add-body-img">

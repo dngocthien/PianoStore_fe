@@ -17,8 +17,8 @@ const Auth = () => {
       method: "post",
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Methods": "DELETE, POST, GET, OPTIONS",
+        // "Access-Control-Allow-Origin": "*",
+        // "Access-Control-Allow-Methods": "DELETE, POST, GET, OPTIONS",
       },
       body: formData,
       // body: JSON.stringify({ username: username, password: password }),

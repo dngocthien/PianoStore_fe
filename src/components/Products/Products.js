@@ -34,12 +34,12 @@ const Products = () => {
   }, [searchQuery]);
 
   useEffect(() => {
-    fetch(DB_URL + "products/brands")
+    fetch(DB_URL + "brands")
       .then((res) => res.json())
       .then((result) => {
         let list = [];
         result.map((brand) => {
-          list = [...list, { label: brand, value: brand }];
+          list = [...list, { label: brand.name, value: brand.id }];
         });
         setBrands(list);
       });
@@ -72,7 +72,7 @@ const Products = () => {
       });
   }
   function changeBrand(brand) {
-    fetch(DB_URL + "productByBrand/" + brand.value)
+    fetch(DB_URL + "products/brand/" + brand.value)
       .then((res) => res.json())
       .then((result) => {
         updatePage(result);

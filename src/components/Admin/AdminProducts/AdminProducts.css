@@ -115,16 +115,17 @@
 .admin-products-add-body input {
   width: 280px;
 }
-
 .admin-products-add-body-img img {
   max-width: 300px;
 }
-
 .admin-products-add-body button {
   margin-top: 2rem;
   margin-bottom: 0;
   width: 310px;
   background-color: var(--light);
+}
+.admin-products-add-body-row{
+  margin-top: 2rem;
 }
 
 .admin-products-add-footer {

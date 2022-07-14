@@ -11,7 +11,7 @@ function Details() {
 
   const { id } = useParams();
   useEffect(() => {
-    fetch(DB_URL + "cartByID/" + id)
+    fetch(DB_URL + "carts/id/" + id)
       .then((res) => res.json())
       .then((result) => {
         setInfo(result);

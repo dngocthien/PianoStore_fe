@@ -8,7 +8,7 @@ import { DB_URL } from "../../constants";
 function Cart() {
   const dispatch = useDispatch();
   // JSON.parse(window.localStorage.getItem("cart")) ?? []
-  const [cart, setCart] = useState(useSelector((state) => state.cart));
+  const [cart, setCart] = useState(useSelector((state) => state.cart) ?? []);
   const [total, setTotal] = useState(0);
 
   const { qr } = useParams();

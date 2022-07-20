@@ -3,9 +3,11 @@ import "./Auth.css";
 import logo from "../../assets/logo.png";
 import { DB_URL } from "../../constants";
 import { useNavigate } from "react-router";
+import { useDispatch } from "react-redux";
 
 const Auth = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
@@ -17,11 +19,8 @@ const Auth = () => {
       method: "post",
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
-        // "Access-Control-Allow-Origin": "*",
-        // "Access-Control-Allow-Methods": "DELETE, POST, GET, OPTIONS",
       },
       body: formData,
-      // body: JSON.stringify({ username: username, password: password }),
     })
       .then((res) => {
         if (res.ok) {
@@ -30,11 +29,12 @@ const Auth = () => {
         throw Error(res.status);
       })
       .then((result) => {
-        localStorage.setItem("access_token", result.access_token);
+        // localStorage.setItem("access_token", result.access_token);
+        dispatch({ type: "LOGIN", token: result.access_token });
         navigate("/admin");
       })
       .catch((error) => {
-        alert("Login fail!" + error);
+        alert("Login failed!");
       });
   }
 

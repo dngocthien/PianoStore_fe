@@ -23,13 +23,46 @@ export const Product = ({ product }) => {
   }
   return (
     <div className="product">
+      {product.discount > 0 ? (
+        <div
+          className="product-discount"
+          style={{
+            backgroundImage:
+              "url(" + require("../../assets/discount.png") + ")",
+          }}
+        >
+          <p>-{product.discount}%</p>
+        </div>
+      ) : (
+        <></>
+      )}
       <img
         className="product-img"
         src={product.image !== null ? product.image : model}
       />
-      <p>{product.name}</p>
-      <p className="product-price">{numberWithCommas(product.price)}đ</p>
-      <p>{product.remain ? "Còn hàng" : "Hết hàng"}</p>
+      <p className="product-name">{product.name}</p>
+
+      {product.discount > 0 ? (
+        <>
+          <p className="product-oldprice">{numberWithCommas(product.price)}đ</p>
+          <p className="product-price">
+            {numberWithCommas(product.price * (1 - product.discount / 100))}đ
+          </p>
+          <p className="product-remain">
+            {product.remain ? "Còn hàng" : "Hết hàng"}
+          </p>
+        </>
+      ) : (
+        <>
+          <p className="product-oldprice-none">&nbsp;</p>
+          <p className="product-price">{numberWithCommas(product.price)}đ</p>
+          <p className="product-remain">
+            {product.remain ? "Còn hàng" : "Hết hàng"}
+          </p>
+          <p className="product-oldprice-none">&nbsp;</p>
+        </>
+      )}
+
       <img className="product-add" src={cart} onClick={() => toCart()} />
       {/* <Link to={`/cart/${product.name}`} state={{ qr: product.name }}>
       </Link> */}

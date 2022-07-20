@@ -29,7 +29,7 @@ const Home = () => {
     initialSlide: 0,
     responsive: [
       {
-        breakpoint: 1024,
+        breakpoint: 1400,
         settings: {
           slidesToShow: 3,
           slidesToScroll: 3,
@@ -38,7 +38,7 @@ const Home = () => {
         },
       },
       {
-        breakpoint: 600,
+        breakpoint: 850,
         settings: {
           slidesToShow: 2,
           slidesToScroll: 2,
@@ -46,7 +46,7 @@ const Home = () => {
         },
       },
       {
-        breakpoint: 480,
+        breakpoint: 595,
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1,
@@ -54,13 +54,13 @@ const Home = () => {
       },
     ],
   };
-  const [products, setProducts] = useState([]);
+  const [discounts, setDiscounts] = useState([]);
   const [cheapProducts, setCheapProducts] = useState([]);
   useEffect(() => {
-    fetch(DB_URL + "products")
+    fetch(DB_URL + "products/discount")
       .then((res) => res.json())
       .then((result) => {
-        setProducts(result);
+        setDiscounts(result);
       });
 
     fetch(DB_URL + "products/cheap")
@@ -89,12 +89,12 @@ const Home = () => {
         <div className="home-container-piano">
           <h1>
             <Link className="text-link" to={"/products"}>
-              PIANO
+              SIÊU GIẢM GIÁ
             </Link>
           </h1>
-          {products.length > 0 ? (
+          {discounts.length > 0 ? (
             <Slider {...settings2}>
-              {products.slice(0, 8).map((p, index) => {
+              {discounts.slice(0, 8).map((p, index) => {
                 return <Product key={index} product={p} />;
               })}
             </Slider>

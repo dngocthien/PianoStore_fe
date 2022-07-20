@@ -20,6 +20,7 @@ function AdminProducts() {
   const [currentPage, setCurrentPage] = useState(0);
   const [range, setRange] = useState(1);
   const [showAddProduct, setShowAddProduct] = useState(false);
+  const [showAddBrand, setShowAddBrand] = useState(false);
   const [showEditProduct, setShowEditroduct] = useState(false);
   const [id, setId] = useState(null);
   const [name, setName] = useState("");
@@ -31,9 +32,6 @@ function AdminProducts() {
   const [imagePreview, setImagePreview] = useState(null);
 
   useEffect(() => {
-    if (localStorage.getItem("access_token") == null) {
-      navigate("/login");
-    }
     fetch(DB_URL + "brands")
       .then((res) => res.json())
       .then((result) => {
@@ -109,6 +107,17 @@ function AdminProducts() {
           updatePage(sorted);
         } else {
           let sorted = response.slice().sort((a, b) => b.price - a.price);
+          setRange(1);
+          updatePage(sorted);
+        }
+        break;
+      case "discount":
+        if (range === 1) {
+          let sorted = response.slice().sort((a, b) => a.discount - b.discount);
+          setRange(0);
+          updatePage(sorted);
+        } else {
+          let sorted = response.slice().sort((a, b) => b.discount - a.discount);
           setRange(1);
           updatePage(sorted);
         }
@@ -215,9 +224,11 @@ function AdminProducts() {
   function switchAddProduct() {
     if (showAddProduct === true) {
       setShowAddProduct(false);
+      setShowAddBrand(false);
     } else {
       setShowAddProduct(true);
       setShowEditroduct(false);
+      setShowAddBrand(false);
       setName("");
       setBrand("");
       setPrice(0);
@@ -291,15 +302,34 @@ function AdminProducts() {
                     type="file"
                     onChange={(e) => handleUploadClick(e)}
                   />
-                  <div className="admin-products-add-body-row">
-                    <Select
-                      options={brands}
-                      placeholder="Thuơng hiệu"
-                      onChange={(e) => setBrand(e.value)}
-                    />
-                  </div>
+                  {showAddBrand ? (
+                    <p>
+                      <input
+                        placeholder="Thuơng hiệu"
+                        onChange={(e) => setBrand(e.target.value)}
+                      ></input>
+                    </p>
+                  ) : (
+                    <div className="admin-products-add-body-row">
+                      {/* <p> */}
+                      <Select
+                        options={brands}
+                        placeholder="Thuơng hiệu"
+                        onChange={(e) => setBrand(e.label)}
+                      />
+                      <button
+                        className="btn-add"
+                        onClick={() => setShowAddBrand(true)}
+                      >
+                        +
+                      </button>
+                    </div>
+                  )}
                   <p>
-                    <button onClick={() => changeRemainStatus()}>
+                    <button
+                      className="btn-info"
+                      onClick={() => changeRemainStatus()}
+                    >
                       {remain ? "Còn hàng" : "Hết hàng"}
                     </button>
                   </p>
@@ -352,7 +382,7 @@ function AdminProducts() {
                     <input
                       value={discount}
                       placeholder="Giảm giá (%)"
-                      onChange={(e) => setPrice(e.target.value)}
+                      onChange={(e) => setDiscount(e.target.value)}
                     ></input>
                   </p>
                   <input
@@ -361,15 +391,18 @@ function AdminProducts() {
                     type="file"
                     onChange={(e) => handleUploadClick(e)}
                   />
-                  <div className="admin-products-add-body-row">
+                  <div className="admin-products-edit-body-row">
                     <Select
                       options={brands}
                       placeholder={brand}
-                      onChange={(e) => setBrand(e.value)}
+                      onChange={(e) => setBrand(e.label)}
                     />
                   </div>
                   <p>
-                    <button onClick={() => changeRemainStatus()}>
+                    <button
+                      className="btn-info"
+                      onClick={() => changeRemainStatus()}
+                    >
                       {remain ? "Còn hàng" : "Hết hàng"}
                     </button>
                   </p>
@@ -417,6 +450,10 @@ function AdminProducts() {
                       GIÁ
                       <img src={icon_sort} />
                     </th>
+                    <th onClick={() => changeRange("discount")}>
+                      GIẢM
+                      <img src={icon_sort} />
+                    </th>
                     <th onClick={() => changeRange("remain")}>
                       TÌNH TRẠNG
                       <img src={icon_sort} />
@@ -445,6 +482,7 @@ function AdminProducts() {
                         <td>{p.name}</td>
                         <td>{p.brand}</td>
                         <td>{numberWithCommas(p.price)}</td>
+                        <td>{p.discount}%</td>
                         <td>{p.remain ? "Còn hàng" : "Hết hàng"}</td>
                       </tr>
                     );

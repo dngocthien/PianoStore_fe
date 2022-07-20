@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Select from "react-select";
 import icon_details from "../../../assets/details.png";
 import icon_search from "../../../assets/search.png";
@@ -10,14 +10,6 @@ import "./AdminOrders.css";
 import { DB_URL } from "../../../constants";
 
 function AdminOrders() {
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (localStorage.getItem("access_token") == null) {
-      navigate("/login");
-    }
-  });
-
   const [searchQuery, setSearchQuery] = useState("");
   const [response, setResponse] = useState([]);
   const [carts, setCarts] = useState([]);

@@ -1,12 +1,11 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 import "./Payment.css";
 import { DB_URL } from "../../constants";
 
 function Payment() {
-  const [cart, setCart] = useState(
-    JSON.parse(window.localStorage.getItem("cart")) ?? []
-  );
+  const cart = useSelector((state) => state.cart);
   const [bank, setBank] = useState(true);
   const [invalidName, setInvalidName] = useState("");
   const [invalidAddress, setInvalidAddress] = useState("");

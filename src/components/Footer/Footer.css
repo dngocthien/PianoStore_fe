@@ -37,7 +37,7 @@
   color: var(--yellow);
 }
 
-@media screen and (max-width: 543px) {
+@media screen and (max-width: 700px) {
   .footer-container {
     flex-direction: column;
   }

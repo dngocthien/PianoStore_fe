@@ -1,7 +1,8 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Outlet, Link, NavLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 import useBreadcrumbs from "use-react-router-breadcrumbs";
 import logo from "../../assets/logo.png";
 import icon_avatar from "../../assets/avatar.png";
@@ -11,6 +12,17 @@ import "./Navbar.css";
 
 function NavbarAdmin() {
   const navigate = useNavigate();
+  const access_token = useSelector((state) => state.access_token);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (access_token == "") {
+      navigate("/login");
+    }
+    // if (localStorage.getItem("access_token") == null) {
+    //   navigate("/login");
+    // }
+  });
 
   const routes = [
     { path: "*", breadcrumb: null },
@@ -22,7 +34,8 @@ function NavbarAdmin() {
   const [showMenu, setShowMenu] = useState(false);
 
   function logout() {
-    localStorage.removeItem("access_token");
+    // localStorage.removeItem("access_token");
+    dispatch({ type: "LOGOUT" });
     navigate("/login");
   }
   return (

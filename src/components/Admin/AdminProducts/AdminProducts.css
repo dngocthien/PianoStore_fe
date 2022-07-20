@@ -118,13 +118,27 @@
 .admin-products-add-body-img img {
   max-width: 300px;
 }
-.admin-products-add-body button {
+.admin-products-add-body .btn-info {
   margin-top: 2rem;
   margin-bottom: 0;
   width: 310px;
   background-color: var(--light);
 }
+.admin-products-add-body .btn-add{
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  vertical-align: middle;
+  padding: 0;
+  background-color: var(--white);
+  border: 1px solid var(--grey);
+}
 .admin-products-add-body-row{
+  margin-top: 2rem;
+  display: flex;
+  justify-content: space-between;
+}
+.admin-products-edit-body-row{
   margin-top: 2rem;
 }
 

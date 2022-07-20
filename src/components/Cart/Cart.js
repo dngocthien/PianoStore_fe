@@ -1,13 +1,14 @@
 import { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 import rm from "../../assets/remove.png";
 import "./Cart.css";
 import { DB_URL } from "../../constants";
 
 function Cart() {
-  const [cart, setCart] = useState(
-    JSON.parse(window.localStorage.getItem("cart")) ?? []
-  );
+  const dispatch = useDispatch();
+  // JSON.parse(window.localStorage.getItem("cart")) ?? []
+  const [cart, setCart] = useState(useSelector((state) => state.cart));
   const [total, setTotal] = useState(0);
 
   const { qr } = useParams();
@@ -18,12 +19,17 @@ function Cart() {
     fetch(DB_URL + "products/" + qr)
       .then((res) => res.json())
       .then((result) => {
-        updateCart(result[0].name, result[0].price, 1);
+        updateCart(
+          result[0].name,
+          result[0].price * (1 - result[0].discount / 100),
+          1
+        );
       });
   }, []);
 
   useEffect(() => {
-    window.localStorage.setItem("cart", JSON.stringify(cart));
+    // window.localStorage.setItem("cart", JSON.stringify(cart));
+    dispatch({ type: "PUT_CART", cart: cart });
     setTotal(sum());
   }, [cart]);
 

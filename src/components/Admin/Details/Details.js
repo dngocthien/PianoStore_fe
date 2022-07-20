@@ -34,7 +34,7 @@ function Details() {
       const imgData = canvas.toDataURL("image/png");
       const pdf = new jsPDF("p", "pt", "a4");
       pdf.addImage(imgData, "JPEG", 0, 0);
-      pdf.save("download.pdf");
+      pdf.save(info.name + ".pdf");
     });
   }
 

@@ -47,19 +47,19 @@ const Navbar = () => {
               <p>
                 <Link
                   className="text-link"
-                  to="/products"
+                  to="/"
                   onClick={() => setShowMenu(false)}
                 >
-                  PIANO
+                  TRANG CHỦ
                 </Link>
               </p>
               <p>
                 <Link
                   className="text-link"
-                  to="/blog"
+                  to="/products"
                   onClick={() => setShowMenu(false)}
                 >
-                  THÔNG BÁO
+                  PIANO
                 </Link>
               </p>
               <p>
